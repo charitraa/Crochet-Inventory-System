@@ -21,6 +21,7 @@ Welcome to the **Crochet Inventory System**! This application helps crochet enth
 ## Installation
 
 ### Prerequisites
+- Node.js (v16 or higher)
 - Python (v3.8 or higher)
 
 ### Frontend Setup
@@ -50,8 +51,8 @@ Welcome to the **Crochet Inventory System**! This application helps crochet enth
 
 1. Fork the repository:
     ```bash
-    git clone https://github.com/your-username/crochet-inventory.git
-    cd crochet-inventory
+    git clone https://github.com/charitraa/Crochet-Inventory-System.git
+    cd Crochet-Inventory-System
     git checkout -b feature/YourFeature
     ```
 
