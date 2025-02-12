@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       <div className="app">
-        <header>Header</header>
+        <header>Crochet Inventory System</header>
         <div className=" flex">
           <Navbar />
           <div className="main">
