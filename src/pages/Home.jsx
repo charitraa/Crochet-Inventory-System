@@ -1,9 +1,28 @@
+import React from "react";
+import Navbar from "../components/Navbar";
+import { Routes, Route } from "react-router-dom";
+import Products from "./products";
+import Users from "./users";
+import Materials from "./Materials";
+
 const Home = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-blue-600">Welcome to Tailwind + Vite!</h1>
-      <p className="text-gray-700">This is a test page.</p>
-    </div>
+    <>
+      <div className="app">
+        <header>Header</header>
+        <div className=" flex">
+          <Navbar />
+          <div className="main">
+            <Routes>
+              <Route path="/materials" element={<Materials />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/users" element={<Users />} />
+            </Routes>
+          </div>
+        </div>
+
+      </div>
+    </>
   );
 };
 
