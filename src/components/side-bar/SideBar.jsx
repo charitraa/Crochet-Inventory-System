@@ -38,9 +38,8 @@ export default function SideBar() {
   return (
     <aside
       style={{ background: "#FACFDD", zIndex: "1000" }}
-      className={`fixed left-0 top h-screen transition-all ease-in-out ${
-        show ? "w-72 p-2" : "w-12 p-0"
-      } flex flex-col`}
+      className={`fixed left-0 top h-screen transition-all ease-in-out ${show ? "w-72 p-2" : "w-12 p-0"
+        } flex flex-col`}
     >
       <nav className="mt-2 p-2 flex justify-between items-center text-black">
         {show && <h1>Crochet</h1>}
@@ -48,7 +47,7 @@ export default function SideBar() {
           onClick={handleClose}
           className="bg-slate-800 w-8 h-7 transition-all rounded-md ease-in-out flex justify-center items-center hover:bg-slate-400 hover:text-black"
         >
-          {show ? <FaArrowLeft color="white" /> : <FaArrowRight color="white"  />}
+          {show ? <FaArrowLeft color="white" /> : <FaArrowRight color="white" />}
         </button>
       </nav>
       <div className="p-2 mt-6 flex flex-col gap-4">
@@ -114,12 +113,12 @@ export default function SideBar() {
             />
           </NavLink>
 
-          <NavLink to="/app/profile">
+          <NavLink to="/app/reports">
             <SideBarButtons
               icon={<LuLayoutDashboard />}
               show={show}
               btnTitle="Reports"
-              isActive={checkIsActive("/app/profile")}
+              isActive={checkIsActive("/app/reports")}
             />
           </NavLink>
 
@@ -134,15 +133,14 @@ export default function SideBar() {
         </div>
       </div>
       <div
-        className={`text-black border-t border-slate-800 flex items-center gap-3 ${
-          show ? "p-2" : "p-2"
-        } mt-auto`}
+        className={`text-black border-t border-slate-800 flex items-center gap-3 ${show ? "p-2" : "p-2"
+          } mt-auto`}
       >
-       
+
         {show && (
           <div>
             <h2> Takri</h2>
-            
+
           </div>
         )}
       </div>
