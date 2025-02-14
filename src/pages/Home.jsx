@@ -1,27 +1,17 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/nav-bar/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Products from "./products";
 import Users from "./users";
 import Materials from "./Materials";
+import Dashboard from "../components/dashboard/Dashboard";
 
 const Home = () => {
   return (
     <>
-      <div className="app">
-        <header>Crochet Inventory System</header>
-        <div className=" flex">
-          <Navbar />
-          <div className="main">
-            <Routes>
-              <Route path="/materials" element={<Materials />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/users" element={<Users />} />
-            </Routes>
-          </div>
-        </div>
+     <Dashboard mainContent={ <h1>Minal kai</h1> }/>
+    
 
-      </div>
     </>
   );
 };
