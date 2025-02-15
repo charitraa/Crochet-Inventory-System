@@ -5,16 +5,28 @@ import NotFound from "../pages/NotFound";
 import Materials from "../pages/materials/Materials";
 import Login from "../pages/login/Login";
 import Signup from "../pages/signup/Signup";
+import Admin from "../pages/admin/admin";
+import Orders from "../pages/orders/Orders";
+import Products from "../pages/products/Products";
+import Purchase from "../pages/purchase/Purchase";
+import Users from "../pages/users/Users";
+import Inbox from "../pages/inbox/inbox";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/app/dashboard" element={<Home />} />
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/*" element={<NotFound />} />
-      <Route path="app/profile" element={<Materials />} />
-
+      <Route path="/app/dashboard" element={<Home />} />
+      <Route path="/app/materials" element={<Materials />} />
+      <Route path="/app/admins" element={<Admin />} />
+      <Route path="/app/orders" element={<Orders />} />
+      <Route path="/app/products" element={<Products />} />
+      <Route path="/app/users" element={<Users />} />
+      <Route path="/app/reports" element={<Report />} />
+      <Route path="/app/purchase" element={<Purchase />} />
+      <Route path="/app/inbox" element={<Inbox />} />
     </Routes>
   );
 }

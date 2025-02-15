@@ -59,78 +59,55 @@ export default function SideBar() {
         </NavLink>
 
         {/* Orders */}
-        <div>
+        <NavLink to="/app/orders">
           <SideBarButtons
             show={show}
             icon={<LuListOrdered />}
             onClick={() => handleSubMenu("orders")}
-            arrow={showMenu.orders ? <IoIosArrowUp /> : <IoIosArrowDown />}
             btnTitle="Orders"
-            isActive={checkIsActive("/app/task-management/board")}
+            isActive={checkIsActive("/app/orders")}
           />
-          {showMenu.orders && show && (
-            <NavLink to="/app/view-orders">
-              <div className="pl-6 border-l border-gray-500">
-                <SubMenu icon={<LuLayoutDashboard />} btnTitle="View Orders" />
+        </NavLink>
 
-              </div>
-            </NavLink>
-
-          )}
-        </div>
-
-        <div>
+        <NavLink to="/app/products">
           <SideBarButtons
             show={show}
             icon={<LuClipboardPlus />}
             onClick={() => handleSubMenu("products")}
-            arrow={showMenu.products ? <IoIosArrowUp /> : <IoIosArrowDown />}
             btnTitle="Products"
             isActive={checkIsActive("/app/products")}
           />
-          {showMenu.products && show && (
-            <div className="pl-6 border-l border-gray-500">
-              <SubMenu icon={<LuLayoutDashboard />} btnTitle="Add Products" />
-              <SubMenu icon={<LuLayoutDashboard />} btnTitle="View Products" />
-            </div>
-          )}
-        </div>
+        </NavLink>
 
-        {/* Fitness Tracker */}
-        <div>
+        <NavLink to="/app/materials">
           <SideBarButtons
             show={show}
             icon={<LuLayoutDashboard />}
-            onClick={() => handleSubMenu("fitness")}
-            arrow={showMenu.fitness ? <IoIosArrowUp /> : <IoIosArrowDown />}
-            btnTitle="Fitness Tracker"
-            isActive={checkIsActive("/app/fitness-tracker")}
+            onClick={() => handleSubMenu("Materials")}
+            btnTitle="Materials"
+            isActive={checkIsActive("/app/materials")}
           />
-          {showMenu.fitness && show && (
-            <div className="pl-6 border-l border-gray-500">
-              <SubMenu icon={<LuLayoutDashboard />} btnTitle="Workouts" />
-              <SubMenu icon={<LuLayoutDashboard />} btnTitle="Diet Plans" />
-            </div>
-          )}
-        </div>
+        </NavLink>
 
-        {/* Users */}
-        <div>
+        <NavLink to="/app/users">
           <SideBarButtons
             show={show}
             icon={<LuLayoutDashboard />}
-            onClick={() => handleSubMenu("reports")}
-            arrow={showMenu.reports ? <IoIosArrowUp /> : <IoIosArrowDown />}
+            onClick={() => handleSubMenu("Users")}
             btnTitle="Users"
-            isActive={checkIsActive("/app/reports")}
+            isActive={checkIsActive("/app/users")}
           />
-          {showMenu.reports && show && (
-            <div className="pl-6 border-l border-gray-500">
-              <SubMenu icon={<LuLayoutDashboard />} btnTitle="Active Users" />
-              <SubMenu icon={<LuLayoutDashboard />} btnTitle="Inactive Users" />
-            </div>
-          )}
-        </div>
+        </NavLink>
+
+
+        <NavLink to="/app/admins">
+          <SideBarButtons
+            icon={<LuLayoutDashboard />}
+            show={show}
+            btnTitle="Admins"
+            isActive={checkIsActive("/app/admins")}
+          />
+        </NavLink>
 
         {/* Other Static Links */}
         <NavLink to="/app/reports">
@@ -142,12 +119,21 @@ export default function SideBar() {
           />
         </NavLink>
 
-        <NavLink to="/app/profile">
+        <NavLink to="/app/purchase">
           <SideBarButtons
             icon={<LuLayoutDashboard />}
             show={show}
-            btnTitle="Purchase Entry"
-            isActive={checkIsActive("/app/profile")}
+            btnTitle="Purchase"
+            isActive={checkIsActive("/app/purchase")}
+          />
+        </NavLink>
+
+        <NavLink to="/app/inbox">
+          <SideBarButtons
+            icon={<LuLayoutDashboard />}
+            show={show}
+            btnTitle="Inbox"
+            isActive={checkIsActive("/app/inbox")}
           />
         </NavLink>
       </div>
