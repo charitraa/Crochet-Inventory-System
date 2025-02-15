@@ -11,6 +11,7 @@ import Products from "../pages/products/Products";
 import Purchase from "../pages/purchase/Purchase";
 import Users from "../pages/users/Users";
 import Inbox from "../pages/inbox/inbox";
+import Report from "../pages/report/Report";
 
 export default function AppRoutes() {
   return (
