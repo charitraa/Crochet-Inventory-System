@@ -1,69 +1,79 @@
-import React, { useState, useEffect, useRef } from "react";
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { FaQuestionCircle } from "react-icons/fa";
-import Faq from "./Faq";
-import ProfileInfo from "./ProfileInfo";
+import { useState } from "react";
+import { Bell, Search } from "lucide-react";
 
-const Navbar = () => {
-  const [showFaq, setShowFaq] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
-  const faqRef = useRef(null);
-  const profileRef = useRef(null);
- 
+
+export default function TopNavbar() {
+  const [notifications, setNotifications] = useState(5);
+  const [isOpen, setIsOpen] = useState(false); // Manage dropdown visibility
+
+  // Toggle dropdown visibility
+  const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
-    <div
-      className=" w-full flex justify-between px-4 top-0 h-14 items-center text-white"
-      style={{ background: "#1A1A1A", zIndex: "100000" }}
-    >
-      <div className="flex items-center gap-3">
-        <div
-          className={` w-[140px] h-[70px] flex justify-center items-center text-xl p-1`}
-        >
-          <img
-            src={logo}
-            className=" w-[140px] h-[70px]  object-cover"
-            alt="profile-image"
-          />
-        </div>
-        <h1 className="hidden md:block">Task Management</h1>
-        <h1 className="hidden md:block">Expense Tracker</h1>
+    <nav style={{ backgroundColor: "#FFC0D4" }} className="p-4 flex items-center justify-between">
+      {/* Logo */}
+      <div className="text-black font-semibold text-lg">Logo Here</div>
+
+      {/* Search Bar */}
+      <div className="relative w-1/3">
+        <input
+          type="text"
+          placeholder="Search here"
+          className="w-full p-1 pr-3 pl-3 rounded-lg placeholder-gray-500 text-gray-500 border-2 border-gray-500 outline-none focus:outline-none focus:ring-0 focus:border-gray-500"
+        />
+        <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" size={18} />
       </div>
-      <div className="flex items-center justify-between gap-5">
-        <IoIosNotificationsOutline className="text-2xl" />
+
+      {/* Notification & Profile */}
+      <div className="flex items-center space-x-6">
+        {/* Notification Bell */}
         <div className="relative">
-          <FaQuestionCircle
-            onClick={() => setShowFaq(!showFaq)}
-            className={`text-2xl cursor-pointer ${
-              showFaq
-                ? "hover:shadow-md translate-y-1 scale-105 transition-all ease-in-out"
-                : ""
-            }`}
-          />
-          {showFaq && <Faq ref={faqRef} show={showFaq} />}
+          <Bell className="text-gray-700 cursor-pointer" size={22} />
+          {notifications > 0 && (
+            <span className="absolute -top-2 right-1 bg-red-500 text-white text-[10px] rounded-full px-2">
+              {notifications}
+            </span>
+
+          )}
         </div>
+
+        {/* Profile */}
         <div className="relative">
           <div
-            onClick={() => setShowProfile(!showProfile)}
-            className={`cursor-pointer w-10 text-center p-1   ${
-              showProfile
-                ? "hover:shadow-md translate-y-1 scale-105 transition-all ease-in-out"
-                : ""
-            }`}
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={toggleDropdown} // Toggle dropdown on click
           >
-            {/* <img
-              src={data?.data?.avatar}
-              alt="profile"
-              className="w-10 object-cover"
-            /> */}
+            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-black font-semibold">
+              R
+            </div>
+            <span className="text-black font-medium">Ravi Shrestha</span>
           </div>
-          {/* {showProfile && (
-            <ProfileInfo ref={profileRef} showProfile={showProfile} />
-          )} */}
+
+          {/* Dropdown Menu */}
+          {isOpen && (
+            <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg w-48 p-2">
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="/profile"
+                    className="block px-4 py-2 text-black hover:bg-gray-100 rounded-md"
+                  >
+                    View Profile
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/logout"
+                    className="block px-4 py-2 text-black hover:bg-gray-100 rounded-md"
+                  >
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </nav>
   );
-};
-
-export default Navbar;
+}

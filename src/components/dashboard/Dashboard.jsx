@@ -6,6 +6,7 @@ export default function Dashboard({ mainContent }) {
   const { responsive } = useContext(AppContext);
   return (
     <>
+      <Navbar />
       <div className="grid grid-cols-1 ">
         <SideBar />
         <div className={` ${responsive ? "md:ml-72" : "ml-12"}`}>
