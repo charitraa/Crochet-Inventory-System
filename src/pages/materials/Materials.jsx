@@ -6,7 +6,7 @@ const Materials = () => {
     <>
       <Dashboard mainContent={
         <div className='h-[90vh] flex items-center justify-center text-2xl text-red-700'>
-          Add Materials Pages
+        Materials Pages
         </div>
       } />
     </>
