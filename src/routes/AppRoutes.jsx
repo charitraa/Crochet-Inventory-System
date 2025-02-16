@@ -12,6 +12,7 @@ import Purchase from "../pages/purchase/Purchase";
 import Users from "../pages/users/Users";
 import Inbox from "../pages/inbox/inbox";
 import Report from "../pages/report/Report";
+import AddMaterials from "../pages/materials/AddMaterial";
 
 export default function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ export default function AppRoutes() {
       <Route path="/*" element={<NotFound />} />
       <Route path="/app/dashboard" element={<Home />} />
       <Route path="/app/materials" element={<Materials />} />
+      <Route path="/app/addmaterials" element={<AddMaterials />} />
       <Route path="/app/admins" element={<Admin />} />
       <Route path="/app/orders" element={<Orders />} />
       <Route path="/app/products" element={<Products />} />
