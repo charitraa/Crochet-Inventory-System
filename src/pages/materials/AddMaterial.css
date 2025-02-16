@@ -1,0 +1,75 @@
+.Container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border 0.3s ease-in-out;
+  }
+  
+  input:focus,
+  select:focus {
+    border-color: #007bff;
+  }
+  
+  input[type="file"] {
+    padding: 5px;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  button[type="button"] {
+    background: #003F62;
+    color: white;
+  }
+  
+  button[type="button"]:hover {
+    background: #003F62;
+  }
+  
+  button:nth-child(2) {
+    background: #003F62;
+  }
+  
+  button:nth-child(2):hover {
+    background: #003F62;
+  }
+  
