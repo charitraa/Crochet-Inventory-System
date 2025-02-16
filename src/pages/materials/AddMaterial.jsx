@@ -13,7 +13,7 @@ const AddMaterials = () => {
             <input type="text" placeholder='Material Name' />
 
             <label htmlFor="colour">Colour</label>
-            <input type="text" placeholder='colour' />
+            <input type="text" placeholder='Colour' />
 
             <label htmlFor="category">Category</label>
             <select id="category" className="p-2 border rounded-lg w-64">
