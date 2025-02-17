@@ -7,20 +7,24 @@ const Home = () => {
     <Dashboard
       mainContent={
         <div className="p-6">
+          {/* Title & Breadcrumb Container */}
+          <div className="flex flex-col items-start">
+            <h1 className="mb-0 text-2xl font-bold text-black">
+              Add Product
+            </h1>
 
-          {/* Page Title */}
-          <h1 className="text-2xl font-bold text-black">Add Product</h1>
-
-          {/* Breadcrumb */}
-          <div className="text-sm text-gray-500 mb-2">
-            Home &gt; All Products &gt;{" "}
-            <span className="font-semibold text-gray-800">Add New Product</span>
+            {/* Breadcrumb */}
+            <div className="text-sm text-gray-500">
+              Home &gt; All Products &gt;{" "}
+              <span className="font-semibold text-gray-800">
+                Add New Product
+              </span>
+            </div>
           </div>
 
           {/* Main Form */}
-          <form className="bg-white p-6 rounded-md shadow-md max-w-5xl">
-            <div className="grid grid-cols-3 gap-10"> {/* Increased gap for better spacing */}
-
+          <form className="bg-white p-6 rounded-md shadow-md max-w-5xl mt-4">
+            <div className="grid grid-cols-3 gap-10">
               {/* LEFT COLUMN (Form Fields) */}
               <div className="col-span-2">
                 {/* Product Name */}
