@@ -6,13 +6,17 @@ export default function Dashboard({ mainContent }) {
   const { responsive } = useContext(AppContext);
   return (
     <>
-      <Navbar />
-      <div className="grid grid-cols-1 ">
-        <SideBar />
-        <div className={` ${responsive ? "md:ml-72" : "ml-12"}`}>
-          {mainContent}
-        </div>
-      </div>
-    </>
+  <Navbar />
+  <div className="flex pt-16"> {/* Adjust padding to prevent content from overlapping the navbar */}
+    <SideBar />
+    <div
+      className={`flex-1 overflow-y-auto p-4 ${responsive ? "md:ml-72" : "ml-12"}`}
+      style={{ height: "calc(100vh - 4rem)" }} 
+    >
+      {mainContent}
+    </div>
+  </div>
+</>
+
   );
 }

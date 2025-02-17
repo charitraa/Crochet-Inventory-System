@@ -9,9 +9,9 @@ const Home = () => {
         <div className="p-6">
           {/* Title & Breadcrumb Container */}
           <div className="flex flex-col items-start">
-            <h1 className="mb-0 text-2xl font-bold text-black">
+            <div className="mb-0 text-2xl font-bold text-black">
               Add Product
-            </h1>
+            </div>
 
             {/* Breadcrumb */}
             <div className="text-sm text-gray-500">
