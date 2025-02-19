@@ -1,8 +1,17 @@
 import React from 'react'
 import './login.css'
+
 const Login = () => {
   return (
-    <div className='h-[90vh] flex items-center justify-center text-2xl text-red-700'>Login</div>
+    <>
+    <div>
+      {/* <img src= {loginImage}></img> */}
+      <div className='logintext'>
+        {/* <h1>Login</h1> */}
+      </div>
+    </div>
+
+    </>
   )
 }
 

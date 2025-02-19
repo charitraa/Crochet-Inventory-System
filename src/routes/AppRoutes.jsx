@@ -27,7 +27,7 @@ export default function AppRoutes() {
       <Route path="/app/orders" element={<Orders />} />
       <Route path="/app/products" element={<Products />} />
       <Route path="/app/users" element={<Users />} />
-      <Route path="/app/reports" element={<Reportgit />} />
+      <Route path="/app/reports" element={<Report />} />
       <Route path="/app/purchase" element={<Purchase />} />
       <Route path="/app/inbox" element={<Inbox />} />
     </Routes>

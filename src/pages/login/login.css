@@ -1,0 +1,10 @@
+
+.logintext{
+    height: 500px;
+    width: 500px;
+    display: flex;
+    /* position: absolute; */
+    background-image: url("/src/assets/image.png");
+    
+    
+}
