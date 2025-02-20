@@ -4,13 +4,10 @@ import './login.css'
 const Login = () => {
   return (
     <>
-    <div>
       {/* <img src= {loginImage}></img> */}
-      <div className='logintext'>
+      <div className='logintext h-screen '>
         {/* <h1>Login</h1> */}
       </div>
-    </div>
-
     </>
   )
 }
