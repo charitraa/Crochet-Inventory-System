@@ -18,10 +18,10 @@ const AddMaterials = () => {
             <label htmlFor="category">Category</label>
             <select id="category" className="p-2 border rounded-lg w-64">
   <option value="">Select a category</option>
-  <option value="electronics">Wool</option>
-  <option value="fashion">Beads</option>
-  <option value="books">Wrapping Paper</option>
-  <option value="home-appliances">Ribbon</option>
+  <option value="wool">Wool</option>
+  <option value="beads">Beads</option>
+  <option value="paper">Wrapping Paper</option>
+  <option value="ribbon">Ribbon</option>
 </select>
 
             <label htmlFor="stock">Stock Quantity</label>

@@ -13,6 +13,7 @@ import Users from "../pages/users/Users";
 import Inbox from "../pages/inbox/inbox";
 import Report from "../pages/report/Report";
 import AddMaterials from "../pages/materials/AddMaterial";
+import AddOrders from "../pages/orders/addorder";
 
 export default function AppRoutes() {
   return (
@@ -25,6 +26,7 @@ export default function AppRoutes() {
       <Route path="/app/addmaterials" element={<AddMaterials />} />
       <Route path="/app/admins" element={<Admin />} />
       <Route path="/app/orders" element={<Orders />} />
+      <Route path="/app/addorders" element={<AddOrders />} />
       <Route path="/app/products" element={<Products />} />
       <Route path="/app/users" element={<Users />} />
       <Route path="/app/reports" element={<Report />} />
