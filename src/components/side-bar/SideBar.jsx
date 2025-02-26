@@ -35,10 +35,13 @@ export default function SideBar() {
 
   return (
     <aside
-      style={{ background: "#FACFDD", zIndex: "1000" }}
-      className={`fixed left-0 top h-screen transition-all ease-in-out ${show ? "w-72 p-2" : "w-12 p-0"
-        } flex flex-col`}
-    >
+  style={{ background: "#FACFDD", zIndex: "1000" }}
+  className={`fixed left-0 top-16 h-[calc(100vh-4rem)] transition-all ease-in-out ${
+    show ? "w-72 p-2" : "w-12 p-0"
+  } flex flex-col`}
+>
+
+
       <nav className="mt-2 p-2 flex justify-between items-center text-black">
         <button
           onClick={handleClose}

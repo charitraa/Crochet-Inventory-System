@@ -10,7 +10,11 @@ export default function TopNavbar() {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
-    <nav style={{ backgroundColor: "#FFC0D4" }} className="p-4 flex items-center justify-between">
+    <nav
+  style={{ backgroundColor: "#FFC0D4" }}
+  className="fixed top-0 left-0 w-full z-50 p-4 flex items-center justify-between shadow-md"
+>
+
       {/* Logo */}
       <div className="text-black font-semibold text-lg">Logo Here</div>
 
