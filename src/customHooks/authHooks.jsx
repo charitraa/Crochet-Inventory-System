@@ -1,21 +1,21 @@
 import axios from "../constant/base.url";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from '../context/ContextApp';
 import useHandleError from "./useHandleError";
 
+
 const useLogin = (url, body) => {
   const handleError = useHandleError()
-  const { setUser, isAuthenticated, isLoading, showToast, setIsLoading, setIsAuthenticated } = useContext(AppContext);
+  const { setUser, isLoading, showToast, setIsLoading, setIsAuthenticated } = useContext(AppContext);
   const loginUser = async () => {
     setIsLoading(true)
     try {
       const response = await axios.post(url, body);
       showToast("Login Successfull", "success");
-
-      console.log(response.data.data.is_staff);
+      localStorage.setItem("access_token", response.data.access)
+      setUser(response.data.data)
       setIsAuthenticated(true)
       setIsLoading(false)
-      setUser(response.data.data)
       return true;
     } catch (e) {
       handleError(e);

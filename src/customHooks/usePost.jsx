@@ -13,7 +13,6 @@ const usePost = (url, body) => {
     try {
       const response = await axios.post(url, body, { withCredentials: true });
       setData(response.data)
-      showToast("Data Saved Successfully!!")
       setIsLoading(false);
       return true;
     } catch (error) {

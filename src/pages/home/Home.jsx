@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { AppContext } from "../../context/ContextApp";
 
 const Home = () => {
-  const { isAuthenticated } = useContext(AppContext);
+  const { user } = useContext(AppContext);
 
   return (
     <>

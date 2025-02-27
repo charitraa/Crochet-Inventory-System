@@ -21,19 +21,17 @@ const ToastOptions = {
 
 export default function ContextApp({ children }) {
   const [responsive, setResponsive] = useState(true);
-  const [user, setUser] = useState({});
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Auth state
+  const [user, setUser] = useState();
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // Auth state
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefreshData] = useState(false);
   const [openModel, setModel] = useState(false);
   useEffect(() => {
     const checkAuth = async () => {
-      const token = Cookies.get("access_token");
-      console.log(token)// Get token from cookies
+      const token = localStorage.getItem('access_token');
       if (token) {
         try {
           const response = await axios.get("/auth/me/");
-          setUser(response.data.data);
           setIsAuthenticated(true);
         } catch (error) {
 
@@ -46,7 +44,6 @@ export default function ContextApp({ children }) {
         setIsLoading(false);
       }
     };
-    console.log(isAuthenticated)
 
     checkAuth();
   }, []);

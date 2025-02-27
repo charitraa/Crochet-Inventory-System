@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useLogin } from "../../customHooks/authHooks";
+import { AppContext } from "../../context/ContextApp";
 
 
 const Login = () => {
@@ -8,6 +9,7 @@ const Login = () => {
     email: "",
     password: "",
   })
+  const { user } = useContext(AppContext)
   const { loginUser } = useLogin("/auth/login/", {
     email: data["email"],
     password: data["password"],
@@ -22,14 +24,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const check = await loginUser();
-    console.log(`check with data ${JSON.stringify(data)}`);
     if (check) {
-      navigate("/app/dashboard");
-
+      navigate('/authorization')
     } else {
       navigate("/");
     }
   };
+
   return (
     <div className="h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/src/assets/login.png')" }}>
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">

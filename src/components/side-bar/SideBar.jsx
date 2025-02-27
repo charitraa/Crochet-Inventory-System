@@ -60,6 +60,16 @@ export default function SideBar() {
           />
         </NavLink>
 
+        <NavLink to="/app/category">
+          <SideBarButtons
+            show={show}
+            icon={<LuClipboardPlus />}
+            onClick={() => handleSubMenu("category")}
+            btnTitle="Category"
+            isActive={checkIsActive("/app/category")}
+          />
+        </NavLink>
+
         {/* Orders */}
         <NavLink to="/app/orders">
           <SideBarButtons
@@ -81,6 +91,7 @@ export default function SideBar() {
           />
         </NavLink>
 
+
         <NavLink to="/app/materials">
           <SideBarButtons
             show={show}
@@ -98,16 +109,6 @@ export default function SideBar() {
             onClick={() => handleSubMenu("Users")}
             btnTitle="Users"
             isActive={checkIsActive("/app/users")}
-          />
-        </NavLink>
-
-
-        <NavLink to="/app/admins">
-          <SideBarButtons
-            icon={<LuLayoutDashboard />}
-            show={show}
-            btnTitle="Admins"
-            isActive={checkIsActive("/app/admins")}
           />
         </NavLink>
 
@@ -130,14 +131,6 @@ export default function SideBar() {
           />
         </NavLink>
 
-        <NavLink to="/app/inbox">
-          <SideBarButtons
-            icon={<LuLayoutDashboard />}
-            show={show}
-            btnTitle="Inbox"
-            isActive={checkIsActive("/app/inbox")}
-          />
-        </NavLink>
       </div>
     </aside>
   );

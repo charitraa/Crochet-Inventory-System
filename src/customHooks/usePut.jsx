@@ -13,7 +13,6 @@ const usePut = (url, body) => {
     try {
       const response = await axios.put(url, body, { withCredentials: true });
       setData(response.data);
-      showToast("Data Updated Successfully!!");
       setIsLoading(false);
       return true;
     } catch (error) {
