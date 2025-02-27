@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Dashboard from "../../components/dashboard/Dashboard";
+import { useEffect } from "react";
+import { AppContext } from "../../context/ContextApp";
 
 const Home = () => {
+  const { isAuthenticated } = useContext(AppContext);
+
   return (
     <>
       <Dashboard mainContent={
