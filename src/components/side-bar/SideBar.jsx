@@ -70,6 +70,15 @@ export default function SideBar() {
           />
         </NavLink>
 
+        <NavLink to="/app/products">
+          <SideBarButtons
+            show={show}
+            icon={<LuClipboardPlus />}
+            onClick={() => handleSubMenu("products")}
+            btnTitle="Products"
+            isActive={checkIsActive("/app/products")}
+          />
+        </NavLink>
         {/* Orders */}
         <NavLink to="/app/orders">
           <SideBarButtons
@@ -81,15 +90,7 @@ export default function SideBar() {
           />
         </NavLink>
 
-        <NavLink to="/app/products">
-          <SideBarButtons
-            show={show}
-            icon={<LuClipboardPlus />}
-            onClick={() => handleSubMenu("products")}
-            btnTitle="Products"
-            isActive={checkIsActive("/app/products")}
-          />
-        </NavLink>
+
 
 
         <NavLink to="/app/materials">
