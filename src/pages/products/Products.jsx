@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
-import { FiImage } from "react-icons/fi";
 import Dashboard from "../../components/dashboard/Dashboard";
 import { AppContext } from "../../context/ContextApp";
-import usePost from "../../customHooks/usePost";
 import { useNavigate } from "react-router-dom";
 import useGet from "../../customHooks/useGet";
+import useFormPost from "../../customHooks/useFormPost";
 
 const Products = () => {
   const [data, setData] = useState({
@@ -17,7 +16,7 @@ const Products = () => {
   });
 
   const { showToast } = useContext(AppContext);
-  const { save } = usePost("product/add-product/", data);
+  const { save } = useFormPost("product/add-product/", data);
   const { newData: categories, isLoading } = useGet("product/category/");
   const navigate = useNavigate();
 
@@ -33,7 +32,7 @@ const Products = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const check = await save();
     if (check) {
@@ -161,7 +160,7 @@ const Products = () => {
               <button
                 type="button"
                 className="w-32 px-4 py-2 bg-white text-black rounded hover:bg-gray-400 border border-pink-500"
-                onClick={() => navigate("/products")}
+
               >
                 Cancel
               </button>

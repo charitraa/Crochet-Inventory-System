@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Bell, Search } from "lucide-react";
+import { AppContext } from "../../context/ContextApp";
+import { useNavigate } from "react-router-dom";
 
 
 export default function TopNavbar() {
   const [notifications, setNotifications] = useState(5);
-  const [isOpen, setIsOpen] = useState(false); // Manage dropdown visibility
-
+  const [isOpen, setIsOpen] = useState(false);
+  const { user } = useContext(AppContext)
   // Toggle dropdown visibility
   const toggleDropdown = () => setIsOpen(!isOpen);
+  const navigate = useNavigate();
+  const handlelogout = () => {
+    // Implement logout logic here
+    localStorage.removeItem("access_token");
+    navigate("/");
+    setIsAuthenticated(false);
+  }
 
   return (
     <nav
-  style={{ backgroundColor: "#FFC0D4" }}
-  className="fixed top-0 left-0 w-full z-50 p-4 flex items-center justify-between shadow-md"
->
+      style={{ backgroundColor: "#FFC0D4" }}
+      className="fixed top-0 left-0 w-full z-50 p-4 flex items-center justify-between shadow-md"
+    >
 
       {/* Logo */}
       <div className="text-black font-semibold text-lg">Logo Here</div>
@@ -48,9 +57,9 @@ export default function TopNavbar() {
             onClick={toggleDropdown} // Toggle dropdown on click
           >
             <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-black font-semibold">
-              R
+              {user ? user.profile_pic : "A"}
             </div>
-            <span className="text-black font-medium">Ravi Shrestha</span>
+            <span className="text-black font-medium">{user ? user.full_name : "Unknown"}</span>
           </div>
 
           {/* Dropdown Menu */}
@@ -66,8 +75,7 @@ export default function TopNavbar() {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="/logout"
+                  <a onClick={() => handlelogout()}
                     className="block px-4 py-2 text-black hover:bg-gray-100 rounded-md"
                   >
                     Logout
@@ -78,6 +86,6 @@ export default function TopNavbar() {
           )}
         </div>
       </div>
-    </nav>
+    </nav >
   );
 }

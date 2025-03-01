@@ -32,6 +32,7 @@ export default function ContextApp({ children }) {
       if (token) {
         try {
           const response = await axios.get("/auth/me/");
+          setUser(response.data.data);
           setIsAuthenticated(true);
         } catch (error) {
 
@@ -44,7 +45,6 @@ export default function ContextApp({ children }) {
         setIsLoading(false);
       }
     };
-
     checkAuth();
   }, []);
   const showToast = (message, type = "default") => {
