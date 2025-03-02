@@ -18,6 +18,7 @@ import UserDashboard from "../components/dashboard/UserDashboard";
 import Authorizations from "../components/Authorizations";
 import ViewCategory from "../pages/category/ViewCategory";
 import Product from "../pages/products/Products";
+import MyProfile from "../pages/profile/MyProfile";
 
 export default function AppRoutes() {
   const { isAuthenticated } = useContext(AppContext);
@@ -29,6 +30,7 @@ export default function AppRoutes() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/*" element={<NotFound />} />
       <Route path="/authorization" element={<Authorizations />} />
+
 
 
       {/* Protected Routes */}
@@ -46,6 +48,8 @@ export default function AppRoutes() {
         <Route path="/app/purchase" element={<Purchase />} />
         <Route path="/app/userdashboard" element={<UserDashboard />} />
         <Route path="/app/category" element={<ViewCategory />} />
+        <Route path="/app/myprofile" element={<MyProfile />} />
+
 
 
 

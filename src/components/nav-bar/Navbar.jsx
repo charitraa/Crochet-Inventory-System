@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Bell, Search } from "lucide-react";
 import { AppContext } from "../../context/ContextApp";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 export default function TopNavbar() {
@@ -67,12 +67,12 @@ export default function TopNavbar() {
             <div className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg w-48 p-2">
               <ul className="space-y-2">
                 <li>
-                  <a
-                    href="/profile"
+                  <a onClick={() => navigate('/app/myprofile')}
                     className="block px-4 py-2 text-black hover:bg-gray-100 rounded-md"
                   >
                     View Profile
                   </a>
+
                 </li>
                 <li>
                   <a onClick={() => handlelogout()}
