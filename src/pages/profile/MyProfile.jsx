@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../context/ContextApp";
+import { baseUrl } from "../../constant/base.url";
 
 const MyProfile = () => {
   const { user } = useContext(AppContext)
@@ -14,13 +15,13 @@ const MyProfile = () => {
       <div className="bg-white shadow-md rounded-lg p-6">
         <div className="flex items-center space-x-6">
           <img
-            src={user?.profile_pic}
+            src={`${baseUrl}${user?.profile_pic}`}
             alt="profile"
             className="w-20 h-20 rounded-full"
           />
           <div>
             <h3 className="text-lg font-semibold">{user?.full_name}</h3>
-            <p className="text-gray-500">{user.email}</p>
+            <p className="text-gray-500">{user?.email}</p>
           </div>
         </div>
 
@@ -30,7 +31,7 @@ const MyProfile = () => {
             <label className="text-gray-600">Full Name</label>
             <input
               type="text"
-              value={user.full_name}
+              value={user?.full_name}
               placeholder="Your First Name"
               className="border w-full p-2 rounded-md mt-1"
             />

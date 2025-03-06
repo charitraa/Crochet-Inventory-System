@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Bell, Search } from "lucide-react";
 import { AppContext } from "../../context/ContextApp";
 import { NavLink, useNavigate } from "react-router-dom";
+import { baseUrl } from "../../constant/base.url";
 
 
 export default function TopNavbar() {
@@ -56,10 +57,17 @@ export default function TopNavbar() {
             className="flex items-center space-x-2 cursor-pointer"
             onClick={toggleDropdown} // Toggle dropdown on click
           >
-            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-black font-semibold">
-              {user ? user.profile_pic : "A"}
-            </div>
-            <span className="text-black font-medium">{user ? user.full_name : "Unknown"}</span>
+            {/* Profile Picture */}
+            <img
+              src={user?.profile_pic ? `${baseUrl}${user.profile_pic}` : "/default-avatar.png"}
+              alt="profile"
+              className="w-10 h-10 rounded-full object-cover border border-gray-300"
+            />
+
+            {/* User Name */}
+            <span className="text-black font-medium">
+              {user ? user.full_name : "Unknown"}
+            </span>
           </div>
 
           {/* Dropdown Menu */}

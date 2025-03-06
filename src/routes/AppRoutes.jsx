@@ -38,11 +38,10 @@ export default function AppRoutes() {
       <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
         <Route path="/app/dashboard" element={<Home />} />
         <Route path="/app/materials" element={<Materials />} />
-        <Route path="/app/addmaterials" element={<AddMaterials />} />
+        <Route path="/app/add-materials" element={<AddMaterials />} />
         <Route path="/app/orders" element={<Orders />} />
         <Route path="/app/add-orders" element={<AddOrders />} />
         <Route path="/app/add-category" element={<AddCategory />} />
-        <Route path="/app/addorders" element={<AddOrders />} />
         <Route path="/app/add-products" element={<Product />} />
         <Route path="/app/products" element={<ProductList />} />
 
