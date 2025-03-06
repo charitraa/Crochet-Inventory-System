@@ -16,8 +16,8 @@ const Products = () => {
   });
 
   const { showToast } = useContext(AppContext);
-  const { save } = useFormPost("product/add-product/", data);
-  const { newData: categories, isLoading } = useGet("product/category/");
+  const { save } = useFormPost("product/add/", data);
+  const { newData: categories, isLoading } = useGet("category/all/");
   const navigate = useNavigate();
 
   const handleChange = (e) => {

@@ -12,7 +12,7 @@ const AddCategory = () => {
       name: "",
     })
   const { showToast } = useContext(AppContext)
-  const { save } = usePost("product/create-category/", {
+  const { save } = usePost("category/add/", {
     name: data["name"],
   });
 

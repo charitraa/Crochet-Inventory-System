@@ -9,7 +9,7 @@ const ViewCategory = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
 
-  const { newData: categories, isLoading } = useGet("product/category/");
+  const { newData: categories, isLoading } = useGet("category/add/");
   const navigate = useNavigate()
 
   // Filtered category list

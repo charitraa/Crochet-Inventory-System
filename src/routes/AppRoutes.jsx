@@ -19,6 +19,7 @@ import Authorizations from "../components/Authorizations";
 import ViewCategory from "../pages/category/ViewCategory";
 import Product from "../pages/products/Products";
 import MyProfile from "../pages/profile/MyProfile";
+import ProductList from "../pages/products/ProductList";
 
 export default function AppRoutes() {
   const { isAuthenticated } = useContext(AppContext);
@@ -42,7 +43,9 @@ export default function AppRoutes() {
         <Route path="/app/add-orders" element={<AddOrders />} />
         <Route path="/app/add-category" element={<AddCategory />} />
         <Route path="/app/addorders" element={<AddOrders />} />
-        <Route path="/app/products" element={<Product />} />
+        <Route path="/app/add-products" element={<Product />} />
+        <Route path="/app/products" element={<ProductList />} />
+
         <Route path="/app/users" element={<Users />} />
         <Route path="/app/reports" element={<Report />} />
         <Route path="/app/purchase" element={<Purchase />} />
