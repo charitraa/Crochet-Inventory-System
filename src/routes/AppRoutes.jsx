@@ -35,28 +35,28 @@ export default function AppRoutes() {
 
 
       {/* Protected Routes */}
-      <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-        <Route path="/app/dashboard" element={<Home />} />
-        <Route path="/app/materials" element={<Materials />} />
-        <Route path="/app/add-materials" element={<AddMaterials />} />
-        <Route path="/app/orders" element={<Orders />} />
-        <Route path="/app/add-orders" element={<AddOrders />} />
-        <Route path="/app/add-category" element={<AddCategory />} />
-        <Route path="/app/add-products" element={<Product />} />
-        <Route path="/app/products" element={<ProductList />} />
+      {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}> */}
+      <Route path="/app/dashboard" element={<Home />} />
+      <Route path="/app/materials" element={<Materials />} />
+      <Route path="/app/add-materials" element={<AddMaterials />} />
+      <Route path="/app/orders" element={<Orders />} />
+      <Route path="/app/add-orders" element={<AddOrders />} />
+      <Route path="/app/add-category" element={<AddCategory />} />
+      <Route path="/app/add-products" element={<Product />} />
+      <Route path="/app/products" element={<ProductList />} />
 
-        <Route path="/app/users" element={<Users />} />
-        <Route path="/app/reports" element={<Report />} />
-        <Route path="/app/purchase" element={<Purchase />} />
-        <Route path="/app/userdashboard" element={<UserDashboard />} />
-        <Route path="/app/category" element={<ViewCategory />} />
-        <Route path="/app/myprofile" element={<MyProfile />} />
-
-
+      <Route path="/app/users" element={<Users />} />
+      <Route path="/app/reports" element={<Report />} />
+      <Route path="/app/purchase" element={<Purchase />} />
+      <Route path="/app/userdashboard" element={<UserDashboard />} />
+      <Route path="/app/category" element={<ViewCategory />} />
+      <Route path="/app/myprofile" element={<MyProfile />} />
 
 
 
-      </Route>
+
+
+      {/* </Route> */}
     </Routes>
   );
 }
