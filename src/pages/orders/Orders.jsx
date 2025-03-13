@@ -1,8 +1,10 @@
 import React from "react";
 import Dashboard from "../../components/dashboard/Dashboard";
 import { FiSearch, FiPlus } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
+  const navigate = useNavigate();
   return (
     <Dashboard
       mainContent={
@@ -18,7 +20,7 @@ const Orders = () => {
               <FiSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
             </div>
           </div>
-          
+
           {/* Title and Controls */}
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold text-black">Orders</h1>
@@ -28,7 +30,7 @@ const Orders = () => {
                 <option>Pending</option>
                 <option>Completed</option>
               </select>
-              <button className="flex items-center space-x-2 bg-blue-500 text-white px-8 py-2 rounded hover:bg-blue-600 whitespace-nowrap">
+              <button className="flex items-center space-x-2 bg-blue-500 text-white px-8 py-2 rounded hover:bg-blue-600 whitespace-nowrap" onClick={ ()=> navigate('/app/add-orders')}>
                 <FiPlus /> <span>New Order</span>
               </button>
             </div>
