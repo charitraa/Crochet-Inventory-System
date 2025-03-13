@@ -1,81 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 import Dashboard from "../../components/dashboard/Dashboard";
+import { TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import useGet from "../../customHooks/useGet"; // Fetch users dynamically
 
 const Users = () => {
   const navigate = useNavigate();
-  const users = [
-    {
-      name: "Sita Sakha",
-      phone: "9867578993",
-      email: "sita@gmail.com",
-      status: "Active",
-      role: "Admin",
-    },
-    {
-      name: "Usha Pun",
-      phone: "9824564622",
-      email: "usha@gmail.com",
-      status: "Inactive",
-      role: "User",
-    },
-  ];
+  const [search, setSearch] = useState("");
+
+  // Fetch users from API
+  const { newData: users, isLoading } = useGet("user/all/");
+
+  // Filter users based on search input
+  const filteredUsers = users?.filter((user) =>
+    user.full_name?.toLowerCase().includes(search.toLowerCase())
+  );
+
 
   return (
     <Dashboard
       mainContent={
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-semibold">Users</h2>
-            <div className="space-x-4">
-              <button className="bg-pink-300 text-black px-4 py-2 rounded-lg" on onClick={() => navigate("/app/add-users")}>
-                Add more
-              </button>
-              <button className="bg-pink-300 text-black px-4 py-2 rounded-lg">
-                Filter
-              </button>
-            </div>
+        <div style={{ padding: "24px", background: "white", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
+          {/* Header Section */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            {/* Search Input */}
+            <TextField
+              label="Search users..."
+              variant="outlined"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{ width: "30%" }}
+            />
+
+            {/* Add User Button */}
+            <Button variant="contained" color="primary" onClick={() => navigate("/app/add-users")}>
+              + New User
+            </Button>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="py-2 px-4 text-left">User Name</th>
-                  <th className="py-2 px-4 text-left">Phone Number</th>
-                  <th className="py-2 px-4 text-left">Email</th>
-                  <th className="py-2 px-4 text-left">Status</th>
-                  <th className="py-2 px-4 text-left">Role</th>
-                  <th className="py-2 px-4 text-left">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user, index) => (
-                  <tr key={index} className="border-t">
-                    <td className="py-2 px-4">{user.name}</td>
-                    <td className="py-2 px-4">{user.phone}</td>
-                    <td className="py-2 px-4">{user.email}</td>
-                    <td className="py-2 px-4">
-                      <span
-                        className={`px-2 py-1 rounded-lg text-white text-sm ${user.status === "Active"
-                          ? "bg-green-400"
-                          : "bg-yellow-400"
-                          }`}
-                      >
-                        {user.status}
-                      </span>
-                    </td>
-                    <td className="py-2 px-4">{user.role}</td>
-                    <td className="py-2 px-4 space-x-2">
-                      <button className="text-blue-500">👁️</button>
-                      <button className="text-blue-500">✏️</button>
-                      <button className="text-red-500">🗑️</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          {/* Table Section */}
+          <TableContainer component={Paper}>
+            {isLoading ? (
+              <div style={{ display: "flex", justifyContent: "center", padding: "20px" }}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <Table>
+                <TableHead style={{ backgroundColor: "#f5f5f5" }}>
+                  <TableRow>
+                    <TableCell><b>Name</b></TableCell>
+                    <TableCell><b>Address</b></TableCell>
+
+                    <TableCell><b>Phone Number</b></TableCell>
+                    <TableCell><b>Email</b></TableCell>
+                    <TableCell><b>Status</b></TableCell>
+                    <TableCell><b>Role</b></TableCell>
+                    <TableCell><b>Actions</b></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {filteredUsers?.length > 0 ? (
+                    filteredUsers.map((user) => (
+                      <TableRow key={user.id}>
+                        <TableCell>{user.full_name}</TableCell>
+                        <TableCell>{user.address}</TableCell>
+                        <TableCell>{user.phone_number}</TableCell>
+                        <TableCell>{user.email}</TableCell>
+                        <TableCell style={{ color: user.is_active ? "green" : "red" }}>
+                          {user.is_active ? "Active" : "Inactive"}
+                        </TableCell>
+
+                        <TableCell>
+                          {user.is_staff ? "Admin" : "General"}
+                        </TableCell>
+                        <TableCell style={{ display: "flex", gap: "8px" }}>
+                          <Button size="small">✏️</Button>
+                          <Button size="small" color="error">🗑️</Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={6} style={{ textAlign: "center", padding: "20px" }}>
+                        No users found.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            )}
+          </TableContainer>
         </div>
       }
     />

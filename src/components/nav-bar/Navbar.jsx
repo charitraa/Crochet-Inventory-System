@@ -26,7 +26,7 @@ export default function TopNavbar() {
     >
 
       {/* Logo */}
-      <div className="text-black font-semibold text-lg">Logo Here</div>
+      <div className="text-black font-semibold text-lg">Takris Crochet</div>
 
       {/* Search Bar */}
       <div className="relative w-1/3">

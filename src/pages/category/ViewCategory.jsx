@@ -9,7 +9,7 @@ const ViewCategory = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
 
-  const { newData: categories, isLoading } = useGet("category/add/");
+  const { newData: categories, isLoading } = useGet("category/all/");
   const navigate = useNavigate()
 
   // Filtered category list
@@ -26,7 +26,7 @@ const ViewCategory = () => {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
             {/* Search Input */}
             <TextField
-              label="Search categories..."
+              label="Search materials..."
               variant="outlined"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
