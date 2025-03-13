@@ -111,14 +111,14 @@ export default function SideBar() {
         </NavLink>
 
         {/* Other Static Links */}
-        <NavLink to="/app/reports">
+        {/* <NavLink to="/app/reports">
           <SideBarButtons
             icon={<LuLayoutDashboard />}
             show={show}
             btnTitle="Reports"
             isActive={checkIsActive("/app/reports")}
           />
-        </NavLink>
+        </NavLink> */}
 
         <NavLink to="/app/purchase">
           <SideBarButtons

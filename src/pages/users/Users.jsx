@@ -1,7 +1,9 @@
 import React from "react";
 import Dashboard from "../../components/dashboard/Dashboard";
+import { useNavigate } from "react-router-dom";
 
 const Users = () => {
+  const navigate = useNavigate();
   const users = [
     {
       name: "Sita Sakha",
@@ -26,7 +28,7 @@ const Users = () => {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold">Users</h2>
             <div className="space-x-4">
-              <button className="bg-pink-300 text-black px-4 py-2 rounded-lg">
+              <button className="bg-pink-300 text-black px-4 py-2 rounded-lg" on onClick={() => navigate("/app/add-users")}>
                 Add more
               </button>
               <button className="bg-pink-300 text-black px-4 py-2 rounded-lg">
@@ -56,8 +58,8 @@ const Users = () => {
                     <td className="py-2 px-4">
                       <span
                         className={`px-2 py-1 rounded-lg text-white text-sm ${user.status === "Active"
-                            ? "bg-green-400"
-                            : "bg-yellow-400"
+                          ? "bg-green-400"
+                          : "bg-yellow-400"
                           }`}
                       >
                         {user.status}
