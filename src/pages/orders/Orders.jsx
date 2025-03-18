@@ -1,57 +1,168 @@
-import React from "react";
+import React, { useState } from "react";
 import Dashboard from "../../components/dashboard/Dashboard";
-import { FiSearch, FiPlus } from "react-icons/fi";
+import {
+  TextField,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  CircularProgress,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import useGet from "../../customHooks/useGet"; // Fetch orders dynamically
 
 const Orders = () => {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All Orders");
+
+  // Fetch orders from API
+  const { newData: orders, isLoading } = useGet("order/all/");
+
+  // Filter orders based on search input and status
+  const filteredOrders = orders?.filter(
+    (order) =>
+      order.user?.toLowerCase().includes(search.toLowerCase()) &&
+      (statusFilter === "All Orders" || order.status === statusFilter)
+  );
+
   return (
     <Dashboard
       mainContent={
-        <div className="p-6">
-          {/* Search Bar Above Title */}
-          <div className="mb-4">
-            <div className="relative w-1/4">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="border border-gray-300 rounded pl-3 pr-12 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300 w-full ml-1"
-              />
-              <FiSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            </div>
+        <div
+          style={{
+            padding: "24px",
+            background: "white",
+            borderRadius: "8px",
+            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+          }}
+        >
+          {/* Header Section */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "16px",
+            }}
+          >
+            {/* Search Input */}
+            <TextField
+              label="Search by User ID..."
+              variant="outlined"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{ width: "30%" }}
+            />
+
+            {/* Filter Dropdown */}
+            <Select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              style={{ width: "20%" }}
+            >
+              <MenuItem value="All Orders">All Orders</MenuItem>
+              <MenuItem value="pending">Pending</MenuItem>
+              <MenuItem value="processing">Processing</MenuItem>
+              <MenuItem value="completed">Completed</MenuItem>
+              <MenuItem value="cancelled">Cancelled</MenuItem>
+            </Select>
+
+            {/* Add Order Button */}
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => navigate("/app/add-orders")}
+            >
+              + New Order
+            </Button>
           </div>
 
-          {/* Title and Controls */}
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold text-black">Orders</h1>
-            <div className="flex items-center space-x-4">
-              <select className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300">
-                <option>All Orders</option>
-                <option>Pending</option>
-                <option>Completed</option>
-              </select>
-              <button className="flex items-center space-x-2 bg-blue-500 text-white px-8 py-2 rounded hover:bg-blue-600 whitespace-nowrap" onClick={ ()=> navigate('/app/add-orders')}>
-                <FiPlus /> <span>New Order</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Orders Table */}
-          <div className="bg-white p-6 rounded-md shadow-md">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b">
-                  <th className="text-left p-2">Order ID</th>
-                  <th className="text-left p-2">Order Item</th>
-                  <th className="text-left p-2">Order Date</th>
-                  <th className="text-left p-2">Quantity</th>
-                  <th className="text-left p-2">Customer Name</th>
-                  <th className="text-left p-2">Status</th>
-                  <th className="text-left p-2">Price</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
+          {/* Table Section */}
+          <TableContainer component={Paper}>
+            {isLoading ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "20px",
+                }}
+              >
+                <CircularProgress />
+              </div>
+            ) : (
+              <Table>
+                <TableHead style={{ backgroundColor: "#f5f5f5" }}>
+                  <TableRow>
+                    <TableCell>
+                      <b>Order ID</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>Order Date</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>User ID</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>Status</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>Total Price</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>Items</b>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {filteredOrders?.length > 0 ? (
+                    filteredOrders.map((order) => (
+                      <TableRow key={order.id}>
+                        <TableCell>{order.id}</TableCell>
+                        <TableCell>{new Date(order.order_date).toLocaleString()}</TableCell>
+                        <TableCell>{order.user}</TableCell>
+                        <TableCell
+                          style={{
+                            color:
+                              order.status === "completed"
+                                ? "green"
+                                : order.status === "cancelled"
+                                  ? "red"
+                                  : "black",
+                          }}
+                        >
+                          {order.status}
+                        </TableCell>
+                        <TableCell>Rs.{order.total_price}</TableCell>
+                        <TableCell>
+                          {order.items.map((item) => (
+                            <div key={item.product}>
+                              {item.product_name} (x{item.quantity})
+                            </div>
+                          ))}
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell
+                        colSpan={6}
+                        style={{ textAlign: "center", padding: "20px" }}
+                      >
+                        No orders found.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            )}
+          </TableContainer>
         </div>
       }
     />
