@@ -5,7 +5,7 @@ import useGet from "../../customHooks/useGet";
 import { baseUrl } from "../../constant/base.url";
 
 const ProductList = () => {
-  const { newData: products, isLoading } = useGet("product/add/");
+  const { newData: products, isLoading } = useGet("product/all/");
   const navigate = useNavigate();
 
   return (
