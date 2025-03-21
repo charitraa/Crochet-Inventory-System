@@ -1,14 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Dashboard from "../../components/dashboard/Dashboard";
 import useGet from "../../customHooks/useGet";
 import { useNavigate } from "react-router-dom";
+import useFormPost from "../../customHooks/useFormPost";
+import { AppContext } from "../../context/ContextApp";
 
 const Purchase = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    material: "",
+    color: "",
+    size: "",
+    type: "",
+    quantity: "",
+    price: "",
+  });
 
   // Fetch materials, sizes, colors, and types
   const { newData: materials, isLoading: materialsLoading } = useGet("material/all/");
   const { newData: colors } = useGet("color/all/");
+  const { showToast } = useContext(AppContext);
+  const { save } = useFormPost("purchase_material/add/", formData);
 
   // State for form inputs
   const [selectedMaterial, setSelectedMaterial] = useState("");
@@ -16,6 +28,16 @@ const Purchase = () => {
   const [types, setTypes] = useState([]);
   const [sizeApi, setSizeApi] = useState("");
   const [typeApi, setTypeApi] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const check = await save(); // Pass correct data
+    if (check) {
+      setFormData({ material: "", color: "", size: "", type: "", quantity: "", price: "" });
+      showToast("Product saved successfully", "success");
+    }
+  };
+
 
   useEffect(() => {
     if (selectedMaterial) {
@@ -25,6 +47,7 @@ const Purchase = () => {
       switch (selectedMaterial) {
         case "bag":
           sizeEndpoint = "size/all/";
+          break;
         case "stick":
           sizeEndpoint = "size/all/";
           break;
@@ -90,15 +113,20 @@ const Purchase = () => {
           <div className="bg-white p-6 rounded-md shadow-md">
             <h3 className="text-xl font-semibold mb-4">Add Purchased Orders</h3>
 
-            <form>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 {/* Material Name */}
                 <div>
                   <label className="block text-gray-700">Material Name</label>
                   <select
                     className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
-                    onChange={(e) => setSelectedMaterial(e.target.value)}
+                    onChange={(e) => {
+                      setSelectedMaterial(e.target.value);
+                      setFormData({ ...formData, material: e.target.value });
+                    }}
+                    value={formData.material}
                   >
+
                     <option value="">Select material</option>
                     {materials?.map((mat) => (
                       <option key={mat.name} value={mat.name}>
@@ -107,34 +135,13 @@ const Purchase = () => {
                     ))}
                   </select>
                 </div>
-
-                {/* Price */}
                 <div>
-                  <label className="block text-gray-700">Price</label>
-                  <input
-                    type="number"
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                {/* Quantity */}
-                <div>
-                  <label className="block text-gray-700">Quantity</label>
-                  <input
-                    type="number"
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
-                  />
-                </div>
-
-                {/* Type */}
-                <div>
-                  <label className="block text-gray-700">Type</label>
-                  <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300">
-                    {types?.map((type) => (
-                      <option key={type.name} value={type.name}>
-                        {type.name}
+                  <label className="block text-gray-700">Color</label>
+                  <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300" value={formData.color}
+                    onChange={(e) => setFormData({ ...formData, color: e.target.value })}>
+                    {colors?.map((color) => (
+                      <option key={color.name} value={color.name}>
+                        {color.name}
                       </option>
                     ))}
                   </select>
@@ -145,7 +152,8 @@ const Purchase = () => {
                 {/* Size */}
                 <div>
                   <label className="block text-gray-700">Size</label>
-                  <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300">
+                  <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300" value={formData.size}
+                    onChange={(e) => setFormData({ ...formData, size: e.target.value })}>
                     {sizes?.map((size) => (
                       <option key={size.name} value={size.name}>
                         {size.name}
@@ -156,16 +164,44 @@ const Purchase = () => {
 
                 {/* Color */}
                 <div>
-                  <label className="block text-gray-700">Color</label>
-                  <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300">
-                    {colors?.map((color) => (
-                      <option key={color.name} value={color.name}>
-                        {color.name}
+                  <label className="block text-gray-700">Type</label>
+                  <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300" value={formData.type}
+                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
+                    {types?.map((type) => (
+                      <option key={type.name} value={type.name}>
+                        {type.name}
                       </option>
                     ))}
                   </select>
                 </div>
+
               </div>
+
+
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                {/* Quantity */}
+                <div>
+                  <label className="block text-gray-700">Quantity</label>
+                  <input
+                    type="number"
+                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
+                    value={formData.quantity}
+                    onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700">Price</label>
+                  <input
+                    type="number"
+                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300" value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                  />
+                </div>
+
+                {/* Type */}
+
+              </div>
+
 
               {/* Buttons */}
               <div className="flex space-x-4 mt-4">

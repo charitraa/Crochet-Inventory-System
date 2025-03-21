@@ -4,6 +4,7 @@ import { TextField, MenuItem, Button, Table, TableBody, TableCell, TableContaine
 import { AppContext } from "../../context/ContextApp";
 import useGet from "../../customHooks/useGet";
 import { NavLink, useNavigate } from "react-router-dom";
+import useDelete from "../../customHooks/useDelete";
 
 const ViewCategory = () => {
   const [search, setSearch] = useState("");
@@ -11,12 +12,35 @@ const ViewCategory = () => {
 
   const { newData: categories, isLoading } = useGet("category/all/");
   const navigate = useNavigate()
+  const { handleDelete } = useDelete();
+  const { showToast } = useContext(AppContext);
+
+
 
   // Filtered category list
   const filteredCategories = categories?.filter(category =>
     (filter === "all" || category.type === filter) &&
     category.name.toLowerCase().includes(search.toLowerCase())
   );
+  const Delete = async (e, id) => {
+    e.preventDefault();
+
+    try {
+      const check = await handleDelete(`category/delete/${id}/`); // Wait for response
+
+      if (check) {
+        showToast("Category deleted successfully", "success");
+
+        // Update UI without refreshing the page
+        window.location.reload();
+      } else {
+        showToast("Failed to delete category", "error");
+      }
+    } catch (error) {
+      console.error("Error deleting category:", error);
+      showToast("Something went wrong!", "error");
+    }
+  };
 
   return (
     <Dashboard
@@ -26,7 +50,7 @@ const ViewCategory = () => {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
             {/* Search Input */}
             <TextField
-              label="Search materials..."
+              label="Search Categories..."
               variant="outlined"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -66,8 +90,8 @@ const ViewCategory = () => {
                   <TableRow>
                     <TableCell><b>Category ID</b></TableCell>
                     <TableCell><b>Category Name</b></TableCell>
-                    {/* <TableCell><b>Products</b></TableCell>
-                    <TableCell><b>Status</b></TableCell> */}
+                    <TableCell><b>Actions</b></TableCell>
+                    {/* <TableCell><b>Status</b></TableCell> */}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -76,6 +100,10 @@ const ViewCategory = () => {
                       <TableRow key={category.id}>
                         <TableCell>{category.id}</TableCell>
                         <TableCell>{category.name}</TableCell>
+                        <TableCell style={{ display: "flex", gap: "8px" }}>
+                          <Button size="small">✏️</Button>
+                          <Button size="small" color="error" onClick={(e) => Delete(e, category.id)}>🗑️</Button>
+                        </TableCell>
                         {/* <TableCell>{category.products_count}</TableCell>
                         <TableCell style={{ color: category.is_active ? "green" : "red" }}>
                           {category.is_active ? "Active" : "Inactive"}

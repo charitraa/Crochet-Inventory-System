@@ -28,6 +28,7 @@ const AddCategory = () => {
     if (check) {
       data['name'] = ""
       showToast("Category saved successfully", "success")
+      navigate("/app/category")
     }
   };
 

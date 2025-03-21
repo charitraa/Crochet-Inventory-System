@@ -21,6 +21,7 @@ import Product from "../pages/products/Products";
 import MyProfile from "../pages/profile/MyProfile";
 import ProductList from "../pages/products/ProductList";
 import AddUser from "../pages/users/AddUser";
+import ViewPurchaseMaterials from "../pages/purchase/ViewPurchaseMaterials";
 
 export default function AppRoutes() {
   const { isAuthenticated } = useContext(AppContext);
@@ -48,10 +49,12 @@ export default function AppRoutes() {
         <Route path="/app/users" element={<Users />} />
         <Route path="/app/add-users" element={<AddUser />} />
         <Route path="/app/reports" element={<Report />} />
-        <Route path="/app/purchase" element={<Purchase />} />
+        <Route path="/app/add-purchase" element={<Purchase />} />
         <Route path="/app/userdashboard" element={<UserDashboard />} />
         <Route path="/app/category" element={<ViewCategory />} />
         <Route path="/app/myprofile" element={<MyProfile />} />
+        <Route path="/app/purchase" element={<ViewPurchaseMaterials />} />
+
 
       </Route>
     </Routes>

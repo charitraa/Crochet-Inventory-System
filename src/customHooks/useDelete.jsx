@@ -3,11 +3,12 @@ import axios from "../constant/base.url";
 import { AppContext } from '../context/ContextApp';
 import useHandleError from "./useHandleError";
 
-const useDelete = (url) => {
+const useDelete = () => {
   const [responseMessage, setResponseMessage] = useState();
   const { setIsLoading, setData, setHealth, setRefreshData, setRegular, setOccasional, setToxic, setGoodPlants, setBadPlants } = useContext(AppContext);
   const handleError = useHandleError();
-  const handleDelete = useCallback(async () => {
+
+  const handleDelete = useCallback(async (url) => {
     setIsLoading(true);
 
     try {
@@ -29,7 +30,7 @@ const useDelete = (url) => {
       setIsLoading(false);
       return false;
     }
-  }, [url, setIsLoading]);
+  }, [setIsLoading]);
 
   return { responseMessage, handleDelete };
 };

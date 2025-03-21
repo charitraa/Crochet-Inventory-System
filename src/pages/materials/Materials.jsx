@@ -66,6 +66,7 @@ const Materials = () => {
                   <TableRow>
                     <TableCell><b>Material ID</b></TableCell>
                     <TableCell><b>Material Name</b></TableCell>
+                    <TableCell><b>Actions</b></TableCell>
                     {/* <TableCell><b>Products</b></TableCell>
                     <TableCell><b>Status</b></TableCell> */}
                   </TableRow>
@@ -80,6 +81,10 @@ const Materials = () => {
                         <TableCell style={{ color: material.is_active ? "green" : "red" }}>
                           {material.is_active ? "Active" : "Inactive"}
                         </TableCell> */}
+                        <TableCell style={{ display: "flex", gap: "8px" }}>
+                          <Button size="small">✏️</Button>
+                          <Button size="small" color="error">🗑️</Button>
+                        </TableCell>
                       </TableRow>
                     ))
                   ) : (

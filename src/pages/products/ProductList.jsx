@@ -5,7 +5,7 @@ import useGet from "../../customHooks/useGet";
 import { baseUrl } from "../../constant/base.url";
 
 const ProductList = () => {
-  const { newData: products, isLoading } = useGet("product/all/");
+  const { newData: products, isLoading, error } = useGet("product/all/");
   const navigate = useNavigate();
 
   return (
@@ -25,6 +25,10 @@ const ProductList = () => {
         {/* Loading State */}
         {isLoading ? (
           <p className="text-center text-gray-500">Loading products...</p>
+        ) : error ? (
+          <p className="text-center text-red-500">Error loading products. Please try again later.</p>
+        ) : products?.length === 0 ? (
+          <p className="text-center text-gray-500">No products found.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products?.map((product) => (

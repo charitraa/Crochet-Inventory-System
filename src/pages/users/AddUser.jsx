@@ -7,13 +7,10 @@ import { useNavigate } from "react-router-dom";
 const AddUser = () => {
   const [userData, setUserData] = useState({
     full_name: "",
-    username: "",
     phone_number: "",
     address: "",
     email: "",
-    password: "",
     role: "",
-    profile_pic: null,
   });
 
   const { showToast } = useContext(AppContext);
@@ -25,10 +22,6 @@ const AddUser = () => {
   };
 
   const navigate = useNavigate();
-
-  const handleFileChange = (e) => {
-    setUserData((prevData) => ({ ...prevData, profile_pic: e.target.files[0] }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,13 +35,12 @@ const AddUser = () => {
     if (success) {
       setUserData({
         fullName: "",
-        username: "",
+
         phone_number: "",
         address: "",
-        email: "",
-        password: "",
+
         role: "",
-        profile_pic: null,
+
       });
       showToast("User added successfully", "success");
     }
@@ -82,17 +74,7 @@ const AddUser = () => {
                   className="border border-gray-300 rounded w-full px-3 py-2 focus:ring-2 focus:ring-pink-300"
                 />
               </div>
-              <div>
-                <label className="block font-semibold mb-1">Username</label>
-                <input
-                  type="text"
-                  name="username"
-                  value={userData.username}
-                  onChange={handleChange}
-                  placeholder="Type username here"
-                  className="border border-gray-300 rounded w-full px-3 py-2 focus:ring-2 focus:ring-pink-300"
-                />
-              </div>
+
               <div>
                 <label className="block font-semibold mb-1">Address</label>
                 <input
@@ -104,17 +86,7 @@ const AddUser = () => {
                   className="border border-gray-300 rounded w-full px-3 py-2 focus:ring-2 focus:ring-pink-300"
                 />
               </div>
-              <div>
-                <label className="block font-semibold mb-1">Email Address</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={userData.email}
-                  onChange={handleChange}
-                  placeholder="Type email here"
-                  className="border border-gray-300 rounded w-full px-3 py-2 focus:ring-2 focus:ring-pink-300"
-                />
-              </div>
+
 
               <div>
                 <label className="block font-semibold mb-1">Phone Number</label>
@@ -124,6 +96,17 @@ const AddUser = () => {
                   value={userData.phone_number}
                   onChange={handleChange}
                   placeholder="Type phone number here"
+                  className="border border-gray-300 rounded w-full px-3 py-2 focus:ring-2 focus:ring-pink-300"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold mb-1">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={userData.email}
+                  onChange={handleChange}
+                  placeholder="Type email here"
                   className="border border-gray-300 rounded w-full px-3 py-2 focus:ring-2 focus:ring-pink-300"
                 />
               </div>
@@ -141,28 +124,6 @@ const AddUser = () => {
                   <option value="general">General</option>
                 </select>
               </div>
-
-              <div>
-                <label className="block font-semibold mb-1">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={userData.password}
-                  onChange={handleChange}
-                  placeholder="Type password here"
-                  className="border border-gray-300 rounded w-full px-3 py-2 focus:ring-2 focus:ring-pink-300"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold mb-1">Profile Picture</label>
-                <input
-                  type="file"
-                  name="profile_pic"
-                  onChange={handleFileChange}
-                  className="border border-gray-300 rounded w-full px-3 py-2 focus:ring-2 focus:ring-pink-300"
-                />
-              </div>
             </div>
 
             <div className="flex justify-end space-x-4 mt-6">
@@ -179,13 +140,10 @@ const AddUser = () => {
                 onClick={() => {
                   setUserData({
                     fullName: "",
-                    username: "",
                     phone_number: "",
                     address: "",
                     email: "",
-                    password: "",
                     role: "",
-                    profile_pic: null,
                   })
                   navigate("/app/users");
                 }

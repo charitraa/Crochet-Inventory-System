@@ -70,7 +70,7 @@ const Orders = () => {
               <MenuItem value="All Orders">All Orders</MenuItem>
               <MenuItem value="pending">Pending</MenuItem>
               <MenuItem value="processing">Processing</MenuItem>
-              <MenuItem value="completed">Completed</MenuItem>
+              <MenuItem value="delivered">Delivered</MenuItem>
               <MenuItem value="cancelled">Cancelled</MenuItem>
             </Select>
 
@@ -101,13 +101,10 @@ const Orders = () => {
                 <TableHead style={{ backgroundColor: "#f5f5f5" }}>
                   <TableRow>
                     <TableCell>
-                      <b>Order ID</b>
+                      <b>User Name</b>
                     </TableCell>
                     <TableCell>
                       <b>Order Date</b>
-                    </TableCell>
-                    <TableCell>
-                      <b>User ID</b>
                     </TableCell>
                     <TableCell>
                       <b>Status</b>
@@ -124,9 +121,8 @@ const Orders = () => {
                   {filteredOrders?.length > 0 ? (
                     filteredOrders.map((order) => (
                       <TableRow key={order.id}>
-                        <TableCell>{order.id}</TableCell>
+                        <TableCell>{order.user_name}</TableCell>
                         <TableCell>{new Date(order.order_date).toLocaleString()}</TableCell>
-                        <TableCell>{order.user}</TableCell>
                         <TableCell
                           style={{
                             color:
