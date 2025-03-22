@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useGet from "../../customHooks/useGet"; // Fetch orders dynamically
+import useDelete from "../../customHooks/useDelete";
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -24,14 +25,32 @@ const Orders = () => {
 
   // Fetch orders from API
   const { newData: orders, isLoading } = useGet("order/all/");
-
+  const { handleDelete } = useDelete();
   // Filter orders based on search input and status
   const filteredOrders = orders?.filter(
     (order) =>
-      order.user?.toLowerCase().includes(search.toLowerCase()) &&
+      order.user_name?.toLowerCase().includes(search.toLowerCase()) &&
       (statusFilter === "All Orders" || order.status === statusFilter)
   );
+  const Delete = async (e, id) => {
+    e.preventDefault();
 
+    try {
+      const check = await handleDelete(`order/delete/${id}/`); // Wait for response
+
+      if (check) {
+        showToast("Materials deleted successfully", "success");
+
+        // Update UI without refreshing the page
+        window.location.reload();
+      } else {
+        showToast("Failed to delete Materials", "error");
+      }
+    } catch (error) {
+      console.error("Error deleting Materials:", error);
+      showToast("Something went wrong!", "error");
+    }
+  };
   return (
     <Dashboard
       mainContent={
@@ -54,7 +73,7 @@ const Orders = () => {
           >
             {/* Search Input */}
             <TextField
-              label="Search by User ID..."
+              label="Search by User Name..."
               variant="outlined"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -115,6 +134,9 @@ const Orders = () => {
                     <TableCell>
                       <b>Items</b>
                     </TableCell>
+                    <TableCell>
+                      <b>Actions</b>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -142,6 +164,12 @@ const Orders = () => {
                               {item.product_name} (x{item.quantity})
                             </div>
                           ))}
+                        </TableCell>
+                        <TableCell style={{ display: "flex", gap: "8px" }}>
+                          <Button size="small" onClick={() => {
+                            navigate(`/app/edit-material/${material.id}`)
+                          }}>✏️</Button>
+                          <Button size="small" color="error" onClick={(e) => Delete(e, material.id)}>🗑️</Button>
                         </TableCell>
                       </TableRow>
                     ))

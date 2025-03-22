@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { LuClipboardPlus, LuLayoutDashboard, LuListOrdered } from "react-icons/lu";
+import { LuClipboardPlus, LuDollarSign, LuLayers, LuLayoutDashboard, LuListOrdered, LuPackage, LuShoppingCart, LuTags, LuUser, } from "react-icons/lu";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { NavLink, useLocation } from "react-router-dom";
@@ -39,8 +39,6 @@ export default function SideBar() {
       className={`fixed left-0 top-18.5 h-[calc(100vh-4rem)] transition-all ease-in-out ${show ? "w-72 p-2" : "w-12 p-0"
         } flex flex-col`}
     >
-
-
       <nav className="mt-2 p-2 flex justify-between items-center text-black">
         <button
           onClick={handleClose}
@@ -63,7 +61,7 @@ export default function SideBar() {
         <NavLink to="/app/category">
           <SideBarButtons
             show={show}
-            icon={<LuClipboardPlus />}
+            icon={<LuTags />}
             onClick={() => handleSubMenu("category")}
             btnTitle="Category"
             isActive={checkIsActive("/app/category")}
@@ -73,7 +71,7 @@ export default function SideBar() {
         <NavLink to="/app/products">
           <SideBarButtons
             show={show}
-            icon={<LuClipboardPlus />}
+            icon={<LuPackage />}
             onClick={() => handleSubMenu("products")}
             btnTitle="Products"
             isActive={checkIsActive("/app/products")}
@@ -83,7 +81,7 @@ export default function SideBar() {
         <NavLink to="/app/orders">
           <SideBarButtons
             show={show}
-            icon={<LuListOrdered />}
+            icon={<LuShoppingCart />}
             onClick={() => handleSubMenu("orders")}
             btnTitle="Orders"
             isActive={checkIsActive("/app/orders")}
@@ -93,7 +91,7 @@ export default function SideBar() {
         <NavLink to="/app/materials">
           <SideBarButtons
             show={show}
-            icon={<LuLayoutDashboard />}
+            icon={<LuLayers />}
             onClick={() => handleSubMenu("materials")}
             btnTitle="Materials"
             isActive={checkIsActive("/app/materials")}
@@ -103,28 +101,18 @@ export default function SideBar() {
         <NavLink to="/app/users">
           <SideBarButtons
             show={show}
-            icon={<LuLayoutDashboard />}
+            icon={<LuUser />}
             onClick={() => handleSubMenu("Users")}
             btnTitle="Users"
             isActive={checkIsActive("/app/users")}
           />
         </NavLink>
 
-        {/* Other Static Links */}
-        {/* <NavLink to="/app/reports">
-          <SideBarButtons
-            icon={<LuLayoutDashboard />}
-            show={show}
-            btnTitle="Reports"
-            isActive={checkIsActive("/app/reports")}
-          />
-        </NavLink> */}
-
         <NavLink to="/app/purchase">
           <SideBarButtons
-            icon={<LuLayoutDashboard />}
+            icon={<LuDollarSign />}
             show={show}
-            btnTitle="Purchase"
+            btnTitle="Material Purchase"
             isActive={checkIsActive("/app/purchase")}
           />
         </NavLink>

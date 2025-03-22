@@ -3,10 +3,12 @@ import Dashboard from "../../components/dashboard/Dashboard";
 import { TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useGet from "../../customHooks/useGet"; // Fetch users dynamically
+import useDelete from "../../customHooks/useDelete";
 
 const Users = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const { handleDelete } = useDelete();
 
   // Fetch users from API
   const { newData: users, isLoading } = useGet("user/all/");
@@ -15,7 +17,25 @@ const Users = () => {
   const filteredUsers = users?.filter((user) =>
     user.full_name?.toLowerCase().includes(search.toLowerCase())
   );
+  const Delete = async (e, id) => {
+    e.preventDefault();
 
+    try {
+      const check = await handleDelete(`user/delete/${id}/`); // Wait for response
+
+      if (check) {
+        showToast("users deleted successfully", "success");
+
+        // Update UI without refreshing the page
+        window.location.reload();
+      } else {
+        showToast("Failed to delete users", "error");
+      }
+    } catch (error) {
+      console.error("Error deleting users:", error);
+      showToast("Something went wrong!", "error");
+    }
+  };
 
   return (
     <Dashboard
@@ -74,8 +94,10 @@ const Users = () => {
                           {user.is_staff ? "Admin" : "General"}
                         </TableCell>
                         <TableCell style={{ display: "flex", gap: "8px" }}>
-                          <Button size="small">✏️</Button>
-                          <Button size="small" color="error">🗑️</Button>
+                          <Button size="small" onClick={() => {
+                            navigate(`/app/edit-user/${user.id}`)
+                          }}>✏️</Button>
+                          <Button size="small" color="error" onClick={(e) => Delete(e, user.id)}>🗑️</Button>
                         </TableCell>
                       </TableRow>
                     ))

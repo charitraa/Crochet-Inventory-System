@@ -101,7 +101,10 @@ const ViewCategory = () => {
                         <TableCell>{category.id}</TableCell>
                         <TableCell>{category.name}</TableCell>
                         <TableCell style={{ display: "flex", gap: "8px" }}>
-                          <Button size="small">✏️</Button>
+                          <Button size="small" onClick={() => {
+                            navigate(`/app/edit-category/${category.id}`)
+
+                          }}>✏️</Button>
                           <Button size="small" color="error" onClick={(e) => Delete(e, category.id)}>🗑️</Button>
                         </TableCell>
                         {/* <TableCell>{category.products_count}</TableCell>

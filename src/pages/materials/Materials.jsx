@@ -4,20 +4,41 @@ import { TextField, MenuItem, Button, Table, TableBody, TableCell, TableContaine
 import { AppContext } from "../../context/ContextApp";
 import useGet from "../../customHooks/useGet";
 import { NavLink, useNavigate } from "react-router-dom";
+import useDelete from "../../customHooks/useDelete";
 
 const Materials = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
+  const { showToast } = useContext(AppContext)
 
   const { newData: materials, isLoading } = useGet("material/all/");
   const navigate = useNavigate()
+  const { handleDelete } = useDelete();
 
   // Filtered material list
   const filteredmaterials = materials?.filter(material =>
     (filter === "all" || material.type === filter) &&
     material.name.toLowerCase().includes(search.toLowerCase())
   );
+  const Delete = async (e, id) => {
+    e.preventDefault();
 
+    try {
+      const check = await handleDelete(`material/delete/${id}/`); // Wait for response
+
+      if (check) {
+        showToast("Materials deleted successfully", "success");
+
+        // Update UI without refreshing the page
+        window.location.reload();
+      } else {
+        showToast("Failed to delete Materials", "error");
+      }
+    } catch (error) {
+      console.error("Error deleting Materials:", error);
+      showToast("Something went wrong!", "error");
+    }
+  };
   return (
     <Dashboard
       mainContent={
@@ -82,8 +103,10 @@ const Materials = () => {
                           {material.is_active ? "Active" : "Inactive"}
                         </TableCell> */}
                         <TableCell style={{ display: "flex", gap: "8px" }}>
-                          <Button size="small">✏️</Button>
-                          <Button size="small" color="error">🗑️</Button>
+                          <Button size="small" onClick={() => {
+                            navigate(`/app/edit-material/${material.id}`)
+                          }}>✏️</Button>
+                          <Button size="small" color="error" onClick={(e) => Delete(e, material.id)}>🗑️</Button>
                         </TableCell>
                       </TableRow>
                     ))

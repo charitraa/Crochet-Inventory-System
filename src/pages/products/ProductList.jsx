@@ -35,7 +35,7 @@ const ProductList = () => {
               <div
                 key={product.id}
                 className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition border border-gray-200"
-              >
+                onClick={() => navigate(`/app/edit-product/${product.id}`)}>
                 {/* Product Image */}
                 <img
                   src={`${baseUrl}${product.image}` || "/placeholder.png"}

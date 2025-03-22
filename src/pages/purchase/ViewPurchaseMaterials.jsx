@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Dashboard from "../../components/dashboard/Dashboard";
 import {
   TextField,
@@ -16,14 +16,18 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useGet from "../../customHooks/useGet"; // Fetch purchase materials dynamically
+import useDelete from "../../customHooks/useDelete";
+import { AppContext } from "../../context/ContextApp";
 
 const ViewPurchaseMaterials = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const { showToast } = useContext(AppContext);
   const [categoryFilter, setCategoryFilter] = useState("All Categories");
 
   // Fetch purchase materials from API
   const { newData: materials, isLoading } = useGet("purchase_material/all/");
+  const { handleDelete } = useDelete();
 
   // Filter materials based on search input and category
   const filteredMaterials = materials?.filter(
@@ -32,6 +36,25 @@ const ViewPurchaseMaterials = () => {
       (categoryFilter === "All Categories" || material?.type === categoryFilter)
   );
 
+  const Delete = async (e, id) => {
+    e.preventDefault();
+
+    try {
+      const check = await handleDelete(`purchase_material/delete/${id}/`); // Wait for response
+
+      if (check) {
+        showToast("users deleted successfully", "success");
+
+        // Update UI without refreshing the page
+        window.location.reload();
+      } else {
+        showToast("Failed to delete users", "error");
+      }
+    } catch (error) {
+      console.error("Error deleting users:", error);
+      showToast("Something went wrong!", "error");
+    }
+  };
   return (
     <Dashboard
       mainContent={
@@ -105,6 +128,7 @@ const ViewPurchaseMaterials = () => {
                     <TableCell>
                       <b>Price</b>
                     </TableCell>
+                    <TableCell><b>Actions</b></TableCell>
 
                   </TableRow>
                 </TableHead>
@@ -118,7 +142,12 @@ const ViewPurchaseMaterials = () => {
                         <TableCell>{material.size || 'none'}</TableCell>
                         <TableCell>{material.quantity}</TableCell>
                         <TableCell>Rs.{material.price}</TableCell>
-
+                        <TableCell style={{ display: "flex", gap: "8px" }}>
+                          <Button size="small" onClick={() => {
+                            navigate(`/app/edit-purchase/${material.id}`)
+                          }}>✏️</Button>
+                          <Button size="small" color="error" onClick={(e) => Delete(e, material.id)}>🗑️</Button>
+                        </TableCell>
                       </TableRow>
                     ))
                   ) : (

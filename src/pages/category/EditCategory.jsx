@@ -1,36 +1,54 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FiImage } from "react-icons/fi"; // Importing the Image Icon
 import Dashboard from "../../components/dashboard/Dashboard";
-import { useEffect } from "react";
 import { AppContext } from "../../context/ContextApp";
-import usePost from "../../customHooks/usePost";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import useGet from "../../customHooks/useGet";
+import usePut from "../../customHooks/usePut";
 
-const AddMaterial = () => {
-  const [data, setData] = useState(
-    {
-      name: "",
-    })
-  const { showToast } = useContext(AppContext)
-  const { save } = usePost("material/add/", {
-    name: data["name"],
+const EditCategory = () => {
+  const [data, setData] = useState({
+    name: "",
   });
+  const { id } = useParams();
+  const { showToast } = useContext(AppContext);
+  const { newData: category, isLoading } = useGet(`category/get/${id}/`);
+  const { update } = usePut(`category/edit/${id}/`);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  // Fetch category data on mount
+  useEffect(() => {
+    if (category) {
+      setData({
+        name: category.name,
+      });
+    }
+  }, [category]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const check = await save();
-    if (check) {
-      data['name'] = ""
-      showToast("Material saved successfully", "success")
-      navigate("/app/materials")
+
+    const updatedCategory = {
+      name: data.name,
+    };
+    const result = update(updatedCategory);
+    if (result) {
+      showToast("Category updated successfully", "success");
+      navigate("/app/category");
+    } else {
+      showToast("Error updating category", "error");
     }
   };
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <Dashboard
@@ -38,27 +56,26 @@ const AddMaterial = () => {
         <div className="p-6">
           {/* Title & Breadcrumb Container */}
           <div className="flex flex-col items-start">
-            <div className="mb-0 text-2xl font-bold text-black">
-              Add Material
-            </div>
+            <div className="mb-0 text-2xl font-bold text-black">Edit Category</div>
 
             {/* Breadcrumb */}
             <div className="text-sm text-gray-500">
-              Material &gt; All Material &gt;{" "}
-              <span className="font-semibold text-gray-800">
-                Add Material
-              </span>
+              Category &gt; All Category &gt;{" "}
+              <span className="font-semibold text-gray-800">Edit Category</span>
             </div>
           </div>
 
           {/* Main Form */}
-          <form className="bg-white p-6 rounded-md shadow-md max-w-5xl mt-4" onSubmit={handleSubmit}>
+          <form
+            className="bg-white p-6 rounded-md shadow-md max-w-5xl mt-4"
+            onSubmit={handleSubmit}
+          >
             <div className="grid grid-cols-3 gap-10">
               {/* LEFT COLUMN (Form Fields) */}
               <div className="col-span-2">
-                {/* Product Name */}
+                {/* Category Name */}
                 <div className="mb-4">
-                  <label className="block font-semibold mb-1">Material Name</label>
+                  <label className="block font-semibold mb-1">Category Name</label>
                   <input
                     type="text"
                     value={data.name}
@@ -78,12 +95,13 @@ const AddMaterial = () => {
                 type="submit"
                 className="w-32 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 border border-pink-500"
               >
-                Add
+                Save
               </button>
 
               <button
                 type="button"
-                className="w-32 px-4 py-2 bg-white text-black rounded hover:bg-gray-400 border border-pink-500" onClick={() => navigate("/app/materials")}
+                className="w-32 px-4 py-2 bg-white text-black rounded hover:bg-gray-400 border border-pink-500"
+                onClick={() => navigate("/app/category")}
               >
                 Cancel
               </button>
@@ -95,4 +113,4 @@ const AddMaterial = () => {
   );
 };
 
-export default AddMaterial;
+export default EditCategory;

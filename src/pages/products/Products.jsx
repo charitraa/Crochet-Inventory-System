@@ -45,6 +45,8 @@ const Products = () => {
         category: "",
       });
       showToast("Product saved successfully", "success");
+      navigate('/app/products');
+
     }
   };
 
