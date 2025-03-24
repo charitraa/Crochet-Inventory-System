@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Dashboard from "../../components/dashboard/Dashboard";
 import {
   TextField,
@@ -17,6 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import useGet from "../../customHooks/useGet"; // Fetch orders dynamically
 import useDelete from "../../customHooks/useDelete";
+import { AppContext } from "../../context/ContextApp";
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const Orders = () => {
   // Fetch orders from API
   const { newData: orders, isLoading } = useGet("order/all/");
   const { handleDelete } = useDelete();
+  const { showToast } = useContext(AppContext);
   // Filter orders based on search input and status
   const filteredOrders = orders?.filter(
     (order) =>
@@ -167,9 +169,9 @@ const Orders = () => {
                         </TableCell>
                         <TableCell style={{ display: "flex", gap: "8px" }}>
                           <Button size="small" onClick={() => {
-                            navigate(`/app/edit-material/${material.id}`)
+                            navigate(`/app/edit-order/${order.id}`)
                           }}>✏️</Button>
-                          <Button size="small" color="error" onClick={(e) => Delete(e, material.id)}>🗑️</Button>
+                          <Button size="small" color="error" onClick={(e) => Delete(e, order.id)}>🗑️</Button>
                         </TableCell>
                       </TableRow>
                     ))

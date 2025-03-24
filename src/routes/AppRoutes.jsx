@@ -26,6 +26,7 @@ import EditMaterials from "../pages/materials/EditMaterials";
 import EditUser from "../pages/users/EditUser";
 import EditProducts from "../pages/products/Edit_Product";
 import EditPurchaseMaterials from "../pages/purchase/EditPurchaseMaterials";
+import EditOrders from "../pages/orders/EditOrder";
 
 export default function AppRoutes() {
   const { isAuthenticated } = useContext(AppContext);
@@ -62,6 +63,8 @@ export default function AppRoutes() {
         <Route path="/app/edit-user/:id" element={<EditUser />} />
         <Route path="/app/edit-product/:id" element={<EditProducts />} />
         <Route path="/app/edit-purchase/:id" element={<EditPurchaseMaterials />} />
+        <Route path="/app/edit-order/:id" element={<EditOrders />} />
+
 
       </Route>
     </Routes>

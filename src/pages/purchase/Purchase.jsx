@@ -26,8 +26,8 @@ const Purchase = () => {
   const [selectedMaterial, setSelectedMaterial] = useState("");
   const [sizes, setSizes] = useState([]);
   const [types, setTypes] = useState([]);
-  const [sizeApi, setSizeApi] = useState("");
-  const [typeApi, setTypeApi] = useState("");
+  const [sizeApi, setSizeApi] = useState(null);
+  const [typeApi, setTypeApi] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,50 +40,27 @@ const Purchase = () => {
 
 
   useEffect(() => {
-    if (selectedMaterial) {
-      let sizeEndpoint = "";
-      let typeEndpoint = "";
-
-      switch (selectedMaterial) {
-        case "bag":
-          sizeEndpoint = "size/all/";
-          break;
-        case "stick":
-          sizeEndpoint = "size/all/";
-          break;
-        case "beads":
-          sizeEndpoint = "beads_size/all/";
-          typeEndpoint = "beads_type/all/";
-          break;
-        case "glue":
-          typeEndpoint = "glue_type/all/";
-          break;
-        case "ribbon":
-          sizeEndpoint = "ribbon_size/all/";
-          typeEndpoint = "ribbon_type/all/";
-          break;
-        case "keyring":
-          typeEndpoint = "keyring_type/all/";
-          break;
-        case "wrapper":
-          typeEndpoint = "wrapper_type/all/";
-          break;
-        case "wire":
-          sizeEndpoint = "wire_size/all/";
-          typeEndpoint = "wire_type/all/";
-          break;
-        case "yarn":
-          sizeEndpoint = "yarn_size/all/";
-          typeEndpoint = "yarn_type/all/";
-          break;
-        default:
-          sizeEndpoint = "";
-          typeEndpoint = "";
-      }
-
-      setSizeApi(sizeEndpoint);
-      setTypeApi(typeEndpoint);
+    if (!selectedMaterial) {
+      setSizeApi(null);
+      setTypeApi(null);
+      return;
     }
+
+    const endpoints = {
+      bag: { size: "size/all/" },
+      stick: { size: "size/all/" },
+      beads: { size: "beads_size/all/", type: "beads_type/all/" },
+      glue: { type: "glue_type/all/" },
+      ribbon: { size: "ribbon_size/all/", type: "ribbon_type/all/" },
+      keyring: { type: "keyring_type/all/" },
+      wrapper: { type: "wrapper_type/all/" },
+      wire: { size: "wire_size/all/", type: "wire_type/all/" },
+      yarn: { size: "yarn_size/all/", type: "yarn_type/all/" }
+    };
+
+    const materialEndpoints = endpoints[selectedMaterial] || {};
+    setSizeApi(materialEndpoints.size || null);
+    setTypeApi(materialEndpoints.type || null);
   }, [selectedMaterial]);
 
   // Fetch dynamic size and type data
@@ -92,12 +69,22 @@ const Purchase = () => {
 
   // Update state when fetched data is available
   useEffect(() => {
-    setSizes(fetchedSizes?.length ? fetchedSizes : [{ name: "None" }]);
+    if (fetchedSizes) {
+      setSizes(Array.isArray(fetchedSizes) ? fetchedSizes : []);
+    } else {
+      setSizes([]);
+    }
   }, [fetchedSizes]);
 
+  // Process types data
   useEffect(() => {
-    setTypes(fetchedTypes?.length ? fetchedTypes : [{ name: "None" }]);
+    if (fetchedTypes) {
+      setTypes(Array.isArray(fetchedTypes) ? fetchedTypes : []);
+    } else {
+      setTypes([]);
+    }
   }, [fetchedTypes]);
+
 
   return (
     <Dashboard
@@ -128,7 +115,7 @@ const Purchase = () => {
                   >
 
                     <option value="">Select material</option>
-                    {materials?.map((mat) => (
+                    {Array.isArray(materials) && materials.map((mat) => (
                       <option key={mat.name} value={mat.name}>
                         {mat.name}
                       </option>
@@ -139,7 +126,7 @@ const Purchase = () => {
                   <label className="block text-gray-700">Color</label>
                   <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300" value={formData.color}
                     onChange={(e) => setFormData({ ...formData, color: e.target.value })}>
-                    {colors?.map((color) => (
+                    {Array.isArray(colors) && colors.map((color) => (
                       <option key={color.name} value={color.name}>
                         {color.name}
                       </option>
@@ -154,7 +141,7 @@ const Purchase = () => {
                   <label className="block text-gray-700">Size</label>
                   <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300" value={formData.size}
                     onChange={(e) => setFormData({ ...formData, size: e.target.value })}>
-                    {sizes?.map((size) => (
+                    {Array.isArray(sizes) && sizes.map((size) => (
                       <option key={size.name} value={size.name}>
                         {size.name}
                       </option>
@@ -167,7 +154,7 @@ const Purchase = () => {
                   <label className="block text-gray-700">Type</label>
                   <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300" value={formData.type}
                     onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
-                    {types?.map((type) => (
+                    {Array.isArray(types) && types.map((type) => (
                       <option key={type.name} value={type.name}>
                         {type.name}
                       </option>

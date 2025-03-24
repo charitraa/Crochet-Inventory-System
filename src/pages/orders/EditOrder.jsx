@@ -1,17 +1,37 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 import Dashboard from "../../components/dashboard/Dashboard";
 import useGet from "../../customHooks/useGet";
-import usePost from "../../customHooks/usePost";
+import usePut from "../../customHooks/usePut";
 import { AppContext } from "../../context/ContextApp";
 
 const EditOrders = () => {
+  const { id } = useParams(); // Get order ID from URL
+  const { newData: users, isLoading: isUsersLoading } = useGet("user/all/");
+  const { newData: products, isLoading: isProductsLoading } = useGet("product/all/");
+  const { newData: order, isLoading: isOrderLoading } = useGet(`order/get/${id}/`);
+  const { update } = usePut(`order/edit/${id}/`);
+  const { showToast } = useContext(AppContext);
+
   const [orderData, setOrderData] = useState({
     user: "",
     items: [],
   });
 
-  const { newData: users, isLoading: isUsersLoading } = useGet("user/all/");
-  const { newData: products, isLoading: isProductsLoading } = useGet("product/all/");
+  // Load order details into state when data is fetched
+  useEffect(() => {
+    if (order) {
+      setOrderData({
+        user: order.user,
+        items: order.items.map((item) => ({
+          product: item.product,
+          product_name: item.product_name,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+      });
+    }
+  }, [order]);
 
   const handleCustomerChange = (e) => {
     setOrderData((prevData) => ({ ...prevData, user: e.target.value }));
@@ -23,7 +43,7 @@ const EditOrders = () => {
 
     const selectedProduct = products.find((p) => p.id === selectedProductId);
 
-    if (selectedProduct && !orderData.items.some((p) => p.productId === selectedProduct.id)) {
+    if (selectedProduct && !orderData.items.some((p) => p.product === selectedProduct.id)) {
       setOrderData((prevData) => ({
         ...prevData,
         items: [
@@ -49,27 +69,28 @@ const EditOrders = () => {
       items: prevData.items.filter((p) => p.product !== productId),
     }));
   };
-  const { showToast } = useContext(AppContext)
-  const { save } = usePost("order/create/", orderData);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const check = await save();
+    const check = await update(orderData);
 
     if (check) {
-      setOrderData({ user: "", items: [] })
-      showToast("Order added successfully!", "success");
-
+      showToast("Order updated successfully!", "success");
     }
   };
+
+  if (isOrderLoading || isUsersLoading || isProductsLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <Dashboard
       mainContent={
         <div className="p-6">
           <div className="flex flex-col items-start">
-            <h1 className="text-2xl font-bold text-black">Add Order</h1>
+            <h1 className="text-2xl font-bold text-black">Edit Order</h1>
             <p className="text-sm text-gray-500">
-              Home &gt; Orders &gt; <span className="font-semibold text-gray-800">Add New Order</span>
+              Home &gt; Orders &gt; <span className="font-semibold text-gray-800">Edit Order</span>
             </p>
           </div>
 
@@ -100,6 +121,7 @@ const EditOrders = () => {
                   name="product"
                   onChange={handleProductSelect}
                   className="border border-gray-300 rounded w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
+
                 >
                   <option value="">Select Product</option>
                   {products?.map((product) => (
@@ -146,9 +168,9 @@ const EditOrders = () => {
             <div className="flex justify-end space-x-4 mt-6">
               <button
                 type="submit"
-                className="w-32 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 border border-pink-500"
+                className="w-32 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 border border-blue-500"
               >
-                Add Order
+                Update Order
               </button>
 
               <button
