@@ -8,20 +8,18 @@ Welcome to the **Crochet Inventory System**! This application helps crochet enth
 - **Inventory Management**: Track yarns, hooks, and other materials.
 - **Project Tracking**: Log ongoing and completed crochet projects.
 - **Stock Alerts**: Get notifications when supplies run low.
-- **Responsive Design**: Optimized for both desktop and mobile devices.
 - **Reports & Analytics**: Generate reports on inventory usage and trends.
 - **Search & Filter**: Easily find items in your inventory.
 
 ## Tech Stack
 
-- **Frontend**: React, TypeScript, TailwindCSS
+- **Frontend**: React, TailwindCSS
 - **Backend**: Django, Django REST Framework, JWT
 - **Database**: SqlLite3
 
 ## Installation
 
 ### Prerequisites
-- Node.js (v16 or higher)
 - Python (v3.8 or higher)
 
 ### Frontend Setup
@@ -29,7 +27,7 @@ Welcome to the **Crochet Inventory System**! This application helps crochet enth
 1. Clone the repository:
     ```bash
     git clone https://github.com/your-username/crochet-inventory.git
-    cd crochet-inventory/client
+    cd crochet-inventory/
     ```
 
 2. Install dependencies:
