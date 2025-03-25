@@ -42,7 +42,7 @@ const Signup = () => {
       {/* Left Section - Image */}
       <div
         className="hidden md:flex w-1/2 bg-cover bg-left"
-        style={{ backgroundImage: "url('/src/assets/signup.png')" }}
+        style={{ backgroundImage: "url('public/assets/signup.png')" }}
       ></div>
 
       {/* Right Section - Form */}
