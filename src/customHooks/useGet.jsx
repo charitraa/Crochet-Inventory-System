@@ -8,11 +8,9 @@ const useGet = (url) => {
     setIsLoading(true);
     try {
       const response = await axios.get(url);
-      console.log(response.data);
       SetNewData(response.data);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
     }
   }, [url, setIsLoading]);

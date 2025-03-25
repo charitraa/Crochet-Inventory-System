@@ -16,7 +16,6 @@ const usePut = (url) => {
       setIsLoading(false);
       return true;
     } catch (error) {
-      console.error("Error updating data:", error);
       handleError(error);
       setIsLoading(false);
       return false;

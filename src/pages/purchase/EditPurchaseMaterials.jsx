@@ -103,7 +103,6 @@ const EditPurchaseMaterials = () => {
       }
     } catch (error) {
       showToast("An error occurred while updating", 'error');
-      console.error("Update error:", error);
     }
   };
 

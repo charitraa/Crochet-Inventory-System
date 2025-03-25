@@ -32,7 +32,6 @@ const Users = () => {
         showToast("Failed to delete users", "error");
       }
     } catch (error) {
-      console.error("Error deleting users:", error);
       showToast("Something went wrong!", "error");
     }
   };

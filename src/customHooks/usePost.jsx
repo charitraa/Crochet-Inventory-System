@@ -16,7 +16,6 @@ const usePost = (url, body) => {
       setIsLoading(false);
       return true;
     } catch (error) {
-      console.error("Error saving data:", error);
       handleError(error);
       setIsLoading(false);
       return false;

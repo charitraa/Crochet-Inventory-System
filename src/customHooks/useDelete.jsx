@@ -13,7 +13,6 @@ const useDelete = () => {
 
     try {
       const response = await axios.delete(url);
-      console.log(response.data);
       setResponseMessage(response.data);
       // setHealth([])
       // setRegular([])
@@ -25,7 +24,6 @@ const useDelete = () => {
       //  setBadPlants([])
       return true;
     } catch (error) {
-      console.log(error);
       handleError(error.message || "An error occurred during logout");
       setIsLoading(false);
       return false;

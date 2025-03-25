@@ -29,7 +29,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const check = await SignupUser();
-    console.log(`check with data ${JSON.stringify(data)}`);
     if (check) {
       navigate("/");
 

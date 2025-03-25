@@ -63,7 +63,6 @@ const EditProducts = () => {
         showToast("Failed to delete Materials", "error");
       }
     } catch (error) {
-      console.error("Error deleting Materials:", error);
       showToast("Something went wrong!", "error");
     }
   };

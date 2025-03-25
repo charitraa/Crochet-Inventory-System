@@ -37,7 +37,6 @@ const ViewCategory = () => {
         showToast("Failed to delete category", "error");
       }
     } catch (error) {
-      console.error("Error deleting category:", error);
       showToast("Something went wrong!", "error");
     }
   };
