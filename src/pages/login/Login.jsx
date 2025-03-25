@@ -32,20 +32,20 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: 'url("/src/assets/loginbg.png")' }}>
+    <div className="h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: 'url("assets/loginbg.png")' }}>
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-4">Log in to your Account</h2>
         <p className="text-center text-gray-600 mb-4">Welcome back! Select method to login</p>
 
         <div className="flex justify-center gap-3 mb-4">
           <button className="p-2 border rounded-lg shadow hover:bg-gray-100">
-            <img src="/src/assets/google.png" alt="Google" className="w-6 h-6" />
+            <img src="assets/google.png" alt="Google" className="w-6 h-6" />
           </button>
           <button className="p-2 border rounded-lg shadow hover:bg-gray-100">
-            <img src="/src/assets/apple-logo.png" alt="Apple" className="w-6 h-6" />
+            <img src="assets/apple-logo.png" alt="Apple" className="w-6 h-6" />
           </button>
           <button className="p-2 border rounded-lg shadow hover:bg-gray-100">
-            <img src="/src/assets/facebook.png" alt="Facebook" className="w-6 h-6" />
+            <img src="assets/facebook.png" alt="Facebook" className="w-6 h-6" />
           </button>
         </div>
 
