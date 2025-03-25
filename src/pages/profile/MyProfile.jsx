@@ -5,6 +5,9 @@ import { FaEdit } from "react-icons/fa";
 import useFormPost from "../../customHooks/useFormPost";
 import usePostProfile from "../../customHooks/usePostProfile";
 import usePut from "../../customHooks/usePut";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const MyProfile = () => {
   const { user, showToast, isLoading } = useContext(AppContext);
@@ -60,7 +63,13 @@ const MyProfile = () => {
   }
 
   return isLoading ? (
-    <p>Loading...</p>
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={isLoading}
+      onClick={handleClose}
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
   ) : (
     <div className="p-6 bg-gray-100 min-h-screen">
       {/* Header */}
