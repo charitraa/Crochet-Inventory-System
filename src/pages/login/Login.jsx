@@ -32,7 +32,7 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/src/assets/login.png')" }}>
+    <div className="h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: 'url("/src/assets/loginbg.png")' }}>
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-4">Log in to your Account</h2>
         <p className="text-center text-gray-600 mb-4">Welcome back! Select method to login</p>
