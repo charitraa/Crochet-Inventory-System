@@ -6,5 +6,5 @@ export default defineConfig({
   plugins: [react(), tailwindcss(),
 
   ],
-  base: 'https://github.com/charitraa/Crochet-Inventory-System'
+  base: '/Crochet-Inventory-System/'
 })

@@ -1,6 +1,7 @@
 {
   "name": "crochet-inventory-system",
   "private": true,
+  "homepage": "https://github.com/charitraa/Crochet-Inventory-System",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
