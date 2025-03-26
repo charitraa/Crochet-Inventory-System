@@ -1,7 +1,7 @@
 import axios from 'axios';
 export default axios.create(
   {
-    baseURL: `https://charitra.pythonanywhere.com/`,
+    baseURL: ` http://127.0.0.1:8000/`,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -10,5 +10,5 @@ export default axios.create(
   }
 
 )
-const baseUrl = "https://charitra.pythonanywhere.com"
+const baseUrl = "http://127.0.0.1:8000/"
 export { baseUrl }

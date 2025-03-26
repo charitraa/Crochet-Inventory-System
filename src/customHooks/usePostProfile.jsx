@@ -11,7 +11,7 @@ const usePostProfile = (url) => {
   const save = async (body) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(`https://charitra.pythonanywhere.com/${url}`, body,
+      const response = await axios.post(`http://127.0.0.1:8000/${url}`, body,
         { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true, },
       );
       setData(response.data)
