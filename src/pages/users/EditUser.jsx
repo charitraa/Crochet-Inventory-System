@@ -9,7 +9,7 @@ const EditUser = () => {
   const { id } = useParams(); // Getting the user ID from the URL params
   const { showToast } = useContext(AppContext);
   const { newData: user, isLoading } = useGet(`user/get/${id}/`); // Fetching user data by ID
-  const { update } = usePut(`user/edit/${id}/`); // API call for updating user data
+  const { update } = usePut(`user/update/${id}/`); // API call for updating user data
 
   const [userData, setUserData] = useState({
     full_name: "",

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Dashboard from "../../components/dashboard/Dashboard";
 import useGet from "../../customHooks/useGet";
 import usePut from "../../customHooks/usePut";
@@ -32,6 +32,8 @@ const EditOrders = () => {
       });
     }
   }, [order]);
+
+  const navigate = useNavigate()
 
   const handleCustomerChange = (e) => {
     setOrderData((prevData) => ({ ...prevData, user: e.target.value }));
@@ -76,6 +78,8 @@ const EditOrders = () => {
 
     if (check) {
       showToast("Order updated successfully!", "success");
+      navigate('/app/orders')
+
     }
   };
 

@@ -9,9 +9,9 @@ const Purchase = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     material: "",
-    color: "",
-    size: "",
-    type: "",
+    color: "none",
+    size: "none",
+    type: "none",
     quantity: "",
     price: "",
   });
@@ -35,6 +35,7 @@ const Purchase = () => {
     if (check) {
       setFormData({ material: "", color: "", size: "", type: "", quantity: "", price: "" });
       showToast("Product saved successfully", "success");
+      navigate('/app/purchase')
     }
   };
 
@@ -75,6 +76,7 @@ const Purchase = () => {
       setSizes([]);
     }
   }, [fetchedSizes]);
+
 
   // Process types data
   useEffect(() => {
@@ -139,26 +141,36 @@ const Purchase = () => {
                 {/* Size */}
                 <div>
                   <label className="block text-gray-700">Size</label>
-                  <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300" value={formData.size}
-                    onChange={(e) => setFormData({ ...formData, size: e.target.value })}>
-                    {Array.isArray(sizes) && sizes.map((size) => (
-                      <option key={size.name} value={size.name}>
-                        {size.name}
-                      </option>
-                    ))}
+                  <select
+                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
+                    value={formData.size || "none"} // Default to "None"
+                    onChange={(e) => setFormData({ ...formData, size: e.target.value === "none" ? null : e.target.value })}
+                  >
+                    <option value="none">None</option>
+                    {Array.isArray(sizes) && sizes.length > 0 &&
+                      sizes.map((size) => (
+                        <option key={size.name} value={size.name}>
+                          {size.name}
+                        </option>
+                      ))}
                   </select>
                 </div>
 
                 {/* Color */}
                 <div>
                   <label className="block text-gray-700">Type</label>
-                  <select className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300" value={formData.type}
-                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
-                    {Array.isArray(types) && types.map((type) => (
-                      <option key={type.name} value={type.name}>
-                        {type.name}
-                      </option>
-                    ))}
+                  <select
+                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
+                    value={formData.type || "none"} // Default to "None"
+                    onChange={(e) => setFormData({ ...formData, type: e.target.value === "none" ? null : e.target.value })}
+                  >
+                    <option value="none">None</option>
+                    {Array.isArray(types) && types.length > 0 &&
+                      types.map((type) => (
+                        <option key={type.name} value={type.name}>
+                          {type.name}
+                        </option>
+                      ))}
                   </select>
                 </div>
 
@@ -195,13 +207,13 @@ const Purchase = () => {
                 <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
                   ADD
                 </button>
-                <button type="reset" className="border border-gray-400 px-6 py-2 rounded hover:bg-gray-200">
+                <button type="reset" className="border border-gray-400 px-6 py-2 rounded hover:bg-gray-200" onClick={() => navigate('/app/purchase')}>
                   CANCEL
                 </button>
               </div>
             </form>
-          </div>
-        </div>
+          </div >
+        </div >
       }
     />
   );

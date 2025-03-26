@@ -33,6 +33,10 @@ const MyProfile = () => {
     }
   }, [user]);
 
+  const handleClose = () => {
+    setLoading(false);
+  };
+
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
     setLoading(true);

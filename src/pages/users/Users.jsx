@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Dashboard from "../../components/dashboard/Dashboard";
 import { TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useGet from "../../customHooks/useGet"; // Fetch users dynamically
 import useDelete from "../../customHooks/useDelete";
+import { AppContext } from "../../context/ContextApp";
 
 const Users = () => {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ const Users = () => {
 
   // Fetch users from API
   const { newData: users, isLoading } = useGet("user/all/");
+  const { showToast } = useContext(AppContext);
+
 
   // Filter users based on search input
   const filteredUsers = users?.filter((user) =>

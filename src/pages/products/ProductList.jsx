@@ -43,7 +43,7 @@ const ProductList = () => {
                   className="w-full h-40 object-cover rounded-lg mb-4"
                 />
                 {/* Product Info */}
-                <h3 className="text-lg font-semibold">{product.name}</h3>
+                <h3 className="text-lg font-semibold">{product.productName}</h3>
                 <p className="text-gray-600 text-sm">{product.description}</p>
                 <p className="text-blue-600 font-bold mt-2">Rs. {product.price}</p>
 
@@ -55,7 +55,7 @@ const ProductList = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="font-medium">Status</span>
-                    <span className="text-gray-700">{product.available_status ? "available" : "unavailable"}</span>
+                    <span className="text-green-700">{product.available_status ? "available" : "unavailable"}</span>
                   </div>
                 </div>
               </div>

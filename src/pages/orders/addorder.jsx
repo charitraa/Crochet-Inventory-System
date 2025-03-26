@@ -3,6 +3,7 @@ import Dashboard from "../../components/dashboard/Dashboard";
 import useGet from "../../customHooks/useGet";
 import usePost from "../../customHooks/usePost";
 import { AppContext } from "../../context/ContextApp";
+import { useNavigate } from "react-router-dom";
 
 const AddOrders = () => {
   const [orderData, setOrderData] = useState({
@@ -16,6 +17,8 @@ const AddOrders = () => {
   const handleCustomerChange = (e) => {
     setOrderData((prevData) => ({ ...prevData, user: e.target.value }));
   };
+
+  const navigate = useNavigate();
 
   const handleProductSelect = (e) => {
     const selectedProductId = e.target.value;
@@ -58,6 +61,7 @@ const AddOrders = () => {
     if (check) {
       setOrderData({ user: "", items: [] })
       showToast("Order added successfully!", "success");
+      navigate('/app/orders')
 
     }
   };
@@ -153,7 +157,9 @@ const AddOrders = () => {
 
               <button
                 type="button"
+                onClick={() => navigate('/app/orders')}
                 className="w-32 px-4 py-2 bg-white text-black rounded hover:bg-gray-400 border border-pink-500"
+
               >
                 Cancel
               </button>
