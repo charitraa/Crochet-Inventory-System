@@ -11,7 +11,7 @@ const useFormPost = (url, body) => {
   const save = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post(`http://localhost:8000/${url}`, body,
+      const response = await axios.post(`https://charitra.pythonanywhere.com/${url}`, body,
         { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true, },
       );
       setData(response.data)
