@@ -27,6 +27,7 @@ import EditUser from "../pages/users/EditUser";
 import EditProducts from "../pages/products/Edit_Product";
 import EditPurchaseMaterials from "../pages/purchase/EditPurchaseMaterials";
 import EditOrders from "../pages/orders/EditOrder";
+import ForgetPassword from "../pages/ForgetPassword";
 
 export default function AppRoutes() {
   const { isAuthenticated } = useContext(AppContext);
@@ -37,9 +38,8 @@ export default function AppRoutes() {
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/*" element={<NotFound />} />
+      <Route path="/forget-password" element={<ForgetPassword />} />
       <Route path="/authorization" element={<Authorizations />} />
-
-
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
@@ -64,6 +64,7 @@ export default function AppRoutes() {
         <Route path="/app/edit-product/:id" element={<EditProducts />} />
         <Route path="/app/edit-purchase/:id" element={<EditPurchaseMaterials />} />
         <Route path="/app/edit-order/:id" element={<EditOrders />} />
+
 
 
       </Route>

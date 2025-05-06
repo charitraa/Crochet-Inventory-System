@@ -56,7 +56,7 @@ const Login = () => {
           <input type="password" placeholder="Password" name="password" value={data.password} onChange={handleChange} id="password" className="w-full px-3 py-2 border rounded-lg mb-3 focus:ring focus:ring-pink-300" />
 
           <div className="flex justify-end items-center text-sm mb-3">
-            <a href="#" className="text-[#FFC0D4] hover:underline" sty>Forget Password?</a>
+            <a className="text-[#FFC0D4] hover:underline cursor-pointer" onClick={() => navigate('/forget-password')}>Forget Password?</a>
           </div>
 
           <button type="submit" className="w-full bg-[#FFC0D4] text-white py-2 rounded-lg hover:bg-pink-600 transition">LOGIN</button>
@@ -67,8 +67,8 @@ const Login = () => {
             Create an account</NavLink>
 
         </p>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 
